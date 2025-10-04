@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUserAppointments, getSymptomHistory } from '../services/api';
+import StrokeAssessment from '../components/StrokeAssessment';
 import '../styles/Dashboard.css';
 
 interface DashboardProps {
@@ -12,6 +13,7 @@ const Dashboard = ({ user }: DashboardProps) => {
   const [appointments, setAppointments] = useState([]);
   const [recentSymptoms, setRecentSymptoms] = useState<any>([]);
   const [loading, setLoading] = useState(true);
+  const [showStrokeAssessment, setShowStrokeAssessment] = useState(false);
 
   const loadDashboardData = useCallback(async () => {
     try {
@@ -37,6 +39,20 @@ const Dashboard = ({ user }: DashboardProps) => {
     }
   }, [navigate, loadDashboardData, user]);
 
+  const handleStrokeDetected = async (assessmentData: any) => {
+    setShowStrokeAssessment(false);
+    
+    // Save to database and trigger emergency flow
+    console.log('Stroke detected:', assessmentData);
+    
+    // Navigate to emergency flow
+    if (assessmentData.strokeDetected) {
+      alert('STROKE DETECTED! Initiating emergency protocol...');
+      // TODO: Implement emergency call simulation and auto-appointment
+      navigate('/emergency-response', { state: { assessmentData } });
+    }
+  };
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -46,17 +62,35 @@ const Dashboard = ({ user }: DashboardProps) => {
   }
 
   return (
-    <div className="dashboard-page">
-      <div className="dashboard-container">
-        <div className="dashboard-header">
-          <div>
-            <h1>Welcome back, {user.name?.split(' ')[0]}!</h1>
-            <p className="dashboard-subtitle">Here's your health overview</p>
+    <>
+      {showStrokeAssessment && (
+        <StrokeAssessment
+          user={user}
+          onStrokeDetected={handleStrokeDetected}
+          onCancel={() => setShowStrokeAssessment(false)}
+        />
+      )}
+      
+      <div className="dashboard-page">
+        <div className="dashboard-container">
+          <div className="dashboard-header">
+            <div>
+              <h1>Welcome back, {user.name?.split(' ')[0]}!</h1>
+              <p className="dashboard-subtitle">Here's your health overview</p>
+            </div>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <button 
+                onClick={() => setShowStrokeAssessment(true)}
+                className="btn btn-danger"
+                style={{ background: '#DC2626' }}
+              >
+                🚨 Stroke Assessment
+              </button>
+              <Link to="/symptoms" className="btn btn-primary">
+                Check Symptoms
+              </Link>
+            </div>
           </div>
-          <Link to="/symptoms" className="btn btn-primary">
-            Check Symptoms
-          </Link>
-        </div>
 
         <div className="dashboard-grid">
           {/* Quick Actions */}
@@ -265,6 +299,7 @@ const Dashboard = ({ user }: DashboardProps) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

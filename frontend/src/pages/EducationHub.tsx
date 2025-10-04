@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/EducationHub.css';
 
@@ -8,11 +8,57 @@ interface EducationHubProps {
 
 const EducationHub = ({ user }: EducationHubProps) => {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [hasStrokeIncident, setHasStrokeIncident] = useState(false);
   
-  // Personalized learning based on medical history
+  // Check for recent stroke incident
+  useEffect(() => {
+    const checkStrokeIncident = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/emergency/stroke-incidents/${user._id}`
+        );
+        const data = await response.json();
+        
+        if (data.success && data.incidents && data.incidents.length > 0) {
+          setHasStrokeIncident(true);
+        }
+      } catch (error) {
+        console.error('Error checking stroke incidents:', error);
+      }
+    };
+    
+    checkStrokeIncident();
+  }, [user._id]);
+  
+  // Personalized learning based on medical history and recent incidents
   const getPersonalizedTopics = () => {
     const conditions = user.medical_conditions || [];
     const topics = [];
+    
+    // PRIORITY: Stroke education if recent incident detected
+    if (hasStrokeIncident) {
+      topics.push({
+        title: '🚨 Understanding Stroke: What You Need to Know',
+        videoId: 'Bm5IxyJWN4k', // Stroke education video
+        category: 'emergency',
+        description: 'Critical information about stroke recovery and prevention',
+        isPriority: true
+      });
+      topics.push({
+        title: 'Stroke Recovery: First Steps',
+        videoId: '7XzdZ4KcI8Y',
+        category: 'emergency',
+        description: 'What to expect during stroke recovery',
+        isPriority: true
+      });
+      topics.push({
+        title: 'Preventing Future Strokes',
+        videoId: 'OZeHq7J9aHM',
+        category: 'prevention',
+        description: 'Lifestyle changes to reduce stroke risk',
+        isPriority: true
+      });
+    }
     
     if (conditions.includes('Diabetes') || conditions.includes('diabetes')) {
       topics.push({
@@ -97,8 +143,23 @@ const EducationHub = ({ user }: EducationHubProps) => {
           </Link>
         </div>
 
+        {/* STROKE PRIORITY BANNER */}
+        {hasStrokeIncident && (
+          <div className="stroke-priority-banner">
+            <div className="stroke-banner-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div className="stroke-banner-content">
+              <h3>🚨 Stroke Recovery Resources</h3>
+              <p>Based on your recent assessment, we've curated essential stroke education content for you.</p>
+            </div>
+          </div>
+        )}
+
         {/* Personalized Banner */}
-        {getPersonalizedTopics().length > 0 && (
+        {getPersonalizedTopics().length > 0 && !hasStrokeIncident && (
           <div className="personalized-banner">
             <div className="banner-icon">✨</div>
             <div className="banner-content">

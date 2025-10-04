@@ -1,5 +1,8 @@
 from flask import Blueprint, request, jsonify
 from services.emergency_detector import EmergencyDetector
+from services.stroke_summary_generator import StrokeSummaryGenerator
+from models.stroke_incident import StrokeIncident
+from datetime import datetime
 
 emergency_bp = Blueprint('emergency', __name__)
 
@@ -61,3 +64,72 @@ def get_emergency_contacts():
             'crisis_text_line': 'Text HOME to 741741'
         }
     }), 200
+
+@emergency_bp.route('/stroke-incident', methods=['POST'])
+def save_stroke_incident():
+    """Save stroke incident to database"""
+    try:
+        data = request.json
+        
+        incident = StrokeIncident(
+            user_id=data.get('user_id'),
+            timestamp=data.get('timestamp', datetime.utcnow().isoformat()),
+            assessment_data=data.get('assessment_data', {}),
+            emergency_call_made=data.get('emergency_call_made', False),
+            appointment_booked=data.get('appointment_booked', False),
+            status=data.get('status', 'active')
+        )
+        
+        incident_id = incident.save()
+        
+        return jsonify({
+            'success': True,
+            'incident_id': incident_id,
+            'message': 'Stroke incident saved successfully'
+        }), 201
+        
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@emergency_bp.route('/stroke-incidents/<user_id>', methods=['GET'])
+def get_stroke_incidents(user_id):
+    """Get all stroke incidents for a user"""
+    try:
+        incidents = StrokeIncident.get_by_user(user_id)
+        
+        return jsonify({
+            'success': True,
+            'incidents': incidents
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@emergency_bp.route('/stroke-summary/<user_id>', methods=['GET'])
+def get_stroke_summary(user_id):
+    """Generate stroke appointment summary for user"""
+    try:
+        # Get latest stroke incident
+        incident = StrokeIncident.get_latest_by_user(user_id)
+        
+        if not incident:
+            return jsonify({
+                'success': False,
+                'error': 'No stroke incident found for user'
+            }), 404
+        
+        # Get user data (in production, fetch from User model)
+        user_name = request.args.get('user_name', 'Patient')
+        
+        # Generate comprehensive summary
+        assessment_data = incident.get('assessment_data', {})
+        summary = StrokeSummaryGenerator.generate_stroke_summary(user_name, assessment_data)
+        
+        return jsonify({
+            'success': True,
+            'summary': summary,
+            'incident_id': incident['_id']
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
