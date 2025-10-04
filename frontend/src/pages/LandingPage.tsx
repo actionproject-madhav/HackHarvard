@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/LandingPage.css';
 
 const LandingPage: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll effect for landing nav
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 50;
+      setIsScrolled(scrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Cleanup listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <div className="landing-page">
-      <nav className="landing-nav">
+      <nav className={`landing-nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="logo">HealthConnect</div>
         <ul className="nav-links">
           <li><a href="#journey">Our Approach</a></li>
