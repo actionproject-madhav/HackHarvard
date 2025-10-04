@@ -7,6 +7,7 @@ from config import Config
 doctors_bp = Blueprint('doctors', __name__)
 
 @doctors_bp.route('/', methods=['GET'])
+@doctors_bp.route('', methods=['GET'])
 def get_doctors():
     """Get all doctors or filter by specialization"""
     try:
@@ -15,6 +16,28 @@ def get_doctors():
         query = {}
         if specialization:
             query['specialization'] = specialization
+        
+        doctors = list(doctors_collection.find(query).limit(50))
+        
+        for doctor in doctors:
+            doctor['_id'] = str(doctor['_id'])
+        
+        return jsonify({'success': True, 'doctors': doctors}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@doctors_bp.route('/search', methods=['GET'])
+def search_doctors():
+    """Search doctors by specialization or other criteria"""
+    try:
+        specialization = request.args.get('specialization')
+        city = request.args.get('city')
+        
+        query = {}
+        if specialization:
+            query['specialization'] = {'$regex': specialization, '$options': 'i'}
+        if city:
+            query['location.city'] = {'$regex': city, '$options': 'i'}
         
         doctors = list(doctors_collection.find(query).limit(50))
         
