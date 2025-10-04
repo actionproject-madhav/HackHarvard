@@ -1,0 +1,128 @@
+.emergency-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: var(--error);
+  color: white;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.emergency-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.emergency-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+
+.emergency-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.emergency-text {
+  flex: 1;
+}
+
+.emergency-text h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  color: white;
+}
+
+.emergency-text p {
+  font-size: 0.9375rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.emergency-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.btn-emergency {
+  padding: 12px 24px;
+  background: white;
+  color: var(--error);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-emergency:hover {
+  background: #F3F4F6;
+  transform: scale(1.05);
+}
+
+.btn-close {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .emergency-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .emergency-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .btn-emergency {
+    width: 100%;
+  }
+}
