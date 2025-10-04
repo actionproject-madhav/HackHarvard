@@ -1,0 +1,92 @@
+[
+    {
+      "name": "Dr. Sarah Johnson",
+      "specialization": "Cardiology",
+      "qualifications": ["MD", "Board Certified Cardiologist"],
+      "experience_years": 15,
+      "languages": ["English", "Spanish"],
+      "hospital": "Cambridge Medical Center",
+      "location": {
+        "address": "123 Medical Plaza, Cambridge, MA 02138",
+        "city": "Cambridge",
+        "state": "MA",
+        "coordinates": {"lat": 42.3736, "lng": -71.1097}
+      },
+      "rating": 4.8,
+      "profile_picture": "https://randomuser.me/api/portraits/women/1.jpg",
+      "bio": "Specialized in preventive cardiology and heart disease management.",
+      "consultation_fee": 200
+    },
+    {
+      "name": "Dr. Michael Chen",
+      "specialization": "Neurology",
+      "qualifications": ["MD", "PhD", "Stroke Specialist"],
+      "experience_years": 12,
+      "languages": ["English", "Mandarin"],
+      "hospital": "Harvard Medical Center",
+      "location": {
+        "address": "456 Brain Institute, Boston, MA 02115",
+        "city": "Boston",
+        "state": "MA",
+        "coordinates": {"lat": 42.3355, "lng": -71.1052}
+      },
+      "rating": 4.9,
+      "profile_picture": "https://randomuser.me/api/portraits/men/2.jpg",
+      "bio": "Expert in stroke prevention and neurological disorders.",
+      "consultation_fee": 250
+    },
+    {
+      "name": "Dr. Emily Rodriguez",
+      "specialization": "General Practice",
+      "qualifications": ["MD", "Family Medicine"],
+      "experience_years": 8,
+      "languages": ["English", "Spanish"],
+      "hospital": "Community Health Clinic",
+      "location": {
+        "address": "789 Main St, Cambridge, MA 02139",
+        "city": "Cambridge",
+        "state": "MA",
+        "coordinates": {"lat": 42.3656, "lng": -71.1040}
+      },
+      "rating": 4.7,
+      "profile_picture": "https://randomuser.me/api/portraits/women/3.jpg",
+      "bio": "Compassionate family doctor providing comprehensive primary care.",
+      "consultation_fee": 150
+    },
+    {
+      "name": "Dr. James Williams",
+      "specialization": "Orthopedics",
+      "qualifications": ["MD", "Sports Medicine Specialist"],
+      "experience_years": 10,
+      "languages": ["English"],
+      "hospital": "Sports Medicine Institute",
+      "location": {
+        "address": "321 Athletic Ave, Boston, MA 02116",
+        "city": "Boston",
+        "state": "MA",
+        "coordinates": {"lat": 42.3505, "lng": -71.0763}
+      },
+      "rating": 4.6,
+      "profile_picture": "https://randomuser.me/api/portraits/men/4.jpg",
+      "bio": "Specializes in joint replacement and sports injuries.",
+      "consultation_fee": 220
+    },
+    {
+      "name": "Dr. Priya Patel",
+      "specialization": "Pediatrics",
+      "qualifications": ["MD", "Board Certified Pediatrician"],
+      "experience_years": 7,
+      "languages": ["English", "Hindi", "Gujarati"],
+      "hospital": "Children's Hospital Boston",
+      "location": {
+        "address": "654 Kids Care Blvd, Boston, MA 02115",
+        "city": "Boston",
+        "state": "MA",
+        "coordinates": {"lat": 42.3388, "lng": -71.1066}
+      },
+      "rating": 4.9,
+      "profile_picture": "https://randomuser.me/api/portraits/women/5.jpg",
+      "bio": "Caring pediatrician with focus on child development and wellness.",
+      "consultation_fee": 180
+    }
+  ]
