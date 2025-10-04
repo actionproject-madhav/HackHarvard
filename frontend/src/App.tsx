@@ -17,6 +17,7 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import EmergencyBanner from './components/EmergencyBanner';
 import StrokeDetector from './components/StrokeDetector';
+import GeminiChatbot from './components/GeminiChatbot';
 
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
 
@@ -24,6 +25,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [emergencyDetected, setEmergencyDetected] = useState(false);
   const [emergencyData, setEmergencyData] = useState(null);
+  const [chatbotOpen, setChatbotOpen] = useState(false);
 
   useEffect(() => {
     // Check for stored user
@@ -62,6 +64,14 @@ function App() {
           {user && <Navbar user={user} onLogout={handleLogout} />}
           
           {user && <StrokeDetector onEmergencyDetected={handleEmergencyDetected} />}
+          
+          {user && user.onboarding_completed && (
+            <GeminiChatbot 
+              user={user} 
+              isOpen={chatbotOpen}
+              onToggle={() => setChatbotOpen(!chatbotOpen)}
+            />
+          )}
           
           <Routes>
             <Route 

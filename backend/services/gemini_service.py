@@ -90,3 +90,37 @@ Use everyday words. Explain like talking to a friend.
                 'success': False,
                 'error': str(e)
             }
+    
+    @staticmethod
+    def chat(message, user_context=None):
+        """Interactive chat with personalized health context"""
+        medical_history = user_context.get('medical_history', []) if user_context else []
+        medications = user_context.get('medications', []) if user_context else []
+        
+        context_str = ""
+        if medical_history:
+            context_str += f"\nPatient Medical History: {', '.join(medical_history)}"
+        if medications:
+            context_str += f"\nCurrent Medications: {', '.join(medications)}"
+        
+        prompt = f"""
+You are ClarityMD Assistant, a friendly and knowledgeable health AI. You help patients understand their health better.
+
+{context_str}
+
+Patient Question: {message}
+
+Provide a helpful, empathetic response. Use simple language. If it's serious, recommend seeing a doctor. Be conversational but professional.
+"""
+        
+        try:
+            response = model.generate_content(prompt)
+            return {
+                'success': True,
+                'response': response.text
+            }
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
