@@ -12,6 +12,7 @@ import Appointment from './pages/Appointment';
 import AppointmentSummary from './pages/AppointmentSummary';
 import MedicationTracker from './pages/MedicationTracker';
 import Profile from './pages/Profile';
+import EducationHub from './pages/EducationHub';
 
 // Components
 import Navbar from './components/Navbar';
@@ -117,6 +118,11 @@ function App() {
             <Route 
               path="/profile" 
               element={user ? <Profile user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/education" 
+              element={user ? <EducationHub user={user} /> : <Navigate to="/login" />} 
             />
             
             <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
