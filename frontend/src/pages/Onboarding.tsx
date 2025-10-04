@@ -65,8 +65,16 @@ const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await completeOnboarding(user._id, formData);
-      navigate('/dashboard');
+      const response = await completeOnboarding(user._id, formData);
+      
+      // Update user in localStorage with onboarding_completed = true
+      if (response.data.user) {
+        localStorage.setItem('claritymd_user', JSON.stringify(response.data.user));
+        // Force page reload to update App state
+        window.location.href = '/dashboard';
+      } else {
+        navigate('/dashboard');
+      }
     } catch (error) {
       console.error('Onboarding failed:', error);
       alert('Failed to complete onboarding. Please try again.');
