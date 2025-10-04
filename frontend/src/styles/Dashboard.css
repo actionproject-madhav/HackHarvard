@@ -1015,3 +1015,254 @@
     font-size: 1.5rem;
   }
 }
+
+/* Additional Missing Classes */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+
+.view-all-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #A51C30;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.view-all-link:hover {
+  color: #8B1526;
+  text-decoration: underline;
+}
+
+/* Activity Section */
+.activity-section {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #F9FAFB 0%, white 100%);
+  border-radius: 1rem;
+  border: 2px solid #E5E7EB;
+  transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+  border-color: #A51C30;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(165, 28, 48, 0.1);
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #A51C30 0%, #C02942 100%);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.activity-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1F2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.activity-content p {
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin: 0 0 0.5rem 0;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+/* Insights Section */
+.insights-section {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.insights-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 1.5rem;
+}
+
+.insight-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.insight-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #F9FAFB 0%, white 100%);
+  border-radius: 1rem;
+  border: 2px solid #E5E7EB;
+}
+
+.insight-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.insight-content {
+  flex: 1;
+}
+
+.insight-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1F2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.insight-content p {
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin: 0;
+}
+
+.insight-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar-small {
+  flex: 1;
+  height: 8px;
+  background: #E5E7EB;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill-small {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981 0%, #059669 100%);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.insight-progress span {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #10B981;
+}
+
+.health-score {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #10B981;
+  font-family: 'Playfair Display', serif;
+  margin: 0.5rem 0;
+}
+
+.reminder-text {
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin: 0.5rem 0;
+}
+
+/* Emergency Info Banner */
+.emergency-info-banner {
+  background: linear-gradient(135deg, #FEE2E2 0%, #FCA5A5 100%);
+  border: 2px solid #EF4444;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.emergency-info-icon {
+  font-size: 3rem;
+  flex-shrink: 0;
+}
+
+.emergency-info-text {
+  flex: 1;
+}
+
+.emergency-info-text h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #991B1B;
+  margin: 0 0 0.25rem 0;
+}
+
+.emergency-info-text p {
+  font-size: 0.875rem;
+  color: #7F1D1D;
+  margin: 0;
+}
+
+/* Button Variants */
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3);
+}
+
+/* Badge Variants */
+.badge-error {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 2px solid #EF4444;
+}

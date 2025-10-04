@@ -51,14 +51,31 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 450px;
+  max-width: 1200px;
   background: white;
   border-radius: 2rem;
-  padding: 3rem;
+  padding: 0;
   box-shadow: 
     0 20px 60px rgba(0, 0, 0, 0.3),
     0 0 100px rgba(165, 28, 48, 0.2);
   animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+/* Login Content */
+.login-content {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Login Header */
+.login-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
 @keyframes slideInUp {
@@ -74,8 +91,11 @@
 
 /* Logo Section */
 .login-logo {
-  text-align: center;
-  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .logo-icon {
@@ -86,11 +106,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem;
   font-size: 2.5rem;
   color: white;
   box-shadow: 0 10px 30px rgba(165, 28, 48, 0.3);
   animation: logoFloat 3s ease-in-out infinite;
+}
+
+.logo-icon-large {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #A51C30 0%, #C02942 100%);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(165, 28, 48, 0.3);
+}
+
+.login-logo h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+
+.login-tagline {
+  font-size: 1rem;
+  color: #6B7280;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 @keyframes logoFloat {
@@ -192,11 +240,81 @@
   justify-content: center;
 }
 
+/* Login Action Section */
+.login-action {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.login-terms {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+/* Login Visual Section */
+.login-visual {
+  background: linear-gradient(135deg, #A51C30 0%, #8B1526 100%);
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-visual::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.visual-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* Features Grid */
 .login-features {
-  margin-top: 2.5rem;
-  padding-top: 2.5rem;
-  border-top: 2px solid #F3F4F6;
+  margin-top: 2rem;
 }
 
 .features-title {
@@ -231,20 +349,37 @@
 }
 
 .feature-icon {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   background: linear-gradient(135deg, #A51C30 0%, #C02942 100%);
   border-radius: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.25rem;
   flex-shrink: 0;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .feature-text {
   flex: 1;
+}
+
+.feature-text h3 {
+  font-weight: 600;
+  color: #1F2937;
+  font-size: 1rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.feature-text p {
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin: 0;
 }
 
 .feature-title {
@@ -425,10 +560,24 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .login-container {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+  }
+  
+  .login-visual {
+    display: none;
+  }
+  
+  .login-content {
+    padding: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-content {
     padding: 2rem;
-    max-width: 100%;
   }
   
   .login-title {
@@ -436,9 +585,15 @@
   }
   
   .logo-icon {
-    width: 70px;
-    height: 70px;
-    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .logo-icon-large {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
   }
   
   .features-grid {
