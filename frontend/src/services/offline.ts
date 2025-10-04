@@ -1,5 +1,5 @@
 // Offline capability using Service Worker
-export const cacheData = (key, data) => {
+export const cacheData = (key: string, data: any): boolean => {
   try {
     localStorage.setItem(`offline_${key}`, JSON.stringify(data));
     return true;
@@ -9,7 +9,7 @@ export const cacheData = (key, data) => {
   }
 };
 
-export const getCachedData = (key) => {
+export const getCachedData = (key: string): any => {
   try {
     const data = localStorage.getItem(`offline_${key}`);
     return data ? JSON.parse(data) : null;
@@ -19,11 +19,11 @@ export const getCachedData = (key) => {
   }
 };
 
-export const isOnline = () => {
+export const isOnline = (): boolean => {
   return navigator.onLine;
 };
 
-export const registerOfflineListener = (callback) => {
+export const registerOfflineListener = (callback: (isOnline: boolean) => void): void => {
   window.addEventListener('online', () => callback(true));
   window.addEventListener('offline', () => callback(false));
 };
