@@ -1,4 +1,6 @@
-export const saveUser = (user) => {
+import { User } from './types';
+
+export const saveUser = (user: User): void => {
   localStorage.setItem('claritymd_user', JSON.stringify(user));
 };
 

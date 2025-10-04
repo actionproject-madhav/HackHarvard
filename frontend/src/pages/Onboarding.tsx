@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { completeOnboarding } from '../services/api';
 import AccessibilityMenu from '../components/AccessibilityMenu';
+import { User, OnboardingFormData, AccessibilityPreferences } from '../services/types';
 import '../styles/Onboarding.css';
 
-const Onboarding = ({ user }) => {
+interface OnboardingProps {
+  user: User;
+}
+
+const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [step, setStep] = useState<number>(1);
+  const [formData, setFormData] = useState<OnboardingFormData>({
     phone: '',
     date_of_birth: '',
     gender: '',
@@ -29,12 +34,12 @@ const Onboarding = ({ user }) => {
     }
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleEmergencyContactChange = (e) => {
+  const handleEmergencyContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -45,19 +50,19 @@ const Onboarding = ({ user }) => {
     });
   };
 
-  const handleArrayInput = (field, value) => {
-    const items = value.split(',').map(item => item.trim()).filter(item => item);
+  const handleArrayInput = (field: string, value: string) => {
+    const items = value.split(',').map((item: string) => item.trim()).filter((item: string) => item);
     setFormData({ ...formData, [field]: items });
   };
 
-  const handleAccessibilityUpdate = (preferences) => {
+  const handleAccessibilityUpdate = (preferences: AccessibilityPreferences) => {
     setFormData({
       ...formData,
       accessibility_preferences: preferences
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await completeOnboarding(user._id, formData);
@@ -140,7 +145,7 @@ const Onboarding = ({ user }) => {
                   onChange={handleChange}
                   className="form-textarea"
                   placeholder="123 Main St, City, State, ZIP"
-                  rows="3"
+                  rows={3}
                 />
               </div>
 
@@ -177,7 +182,7 @@ const Onboarding = ({ user }) => {
                   className="form-textarea"
                   placeholder="Enter conditions separated by commas (e.g., Diabetes, Hypertension)"
                   onChange={(e) => handleArrayInput('medical_history', e.target.value)}
-                  rows="3"
+                  rows={3}
                 />
                 <p className="form-helper">Separate multiple items with commas</p>
               </div>
@@ -188,7 +193,7 @@ const Onboarding = ({ user }) => {
                   className="form-textarea"
                   placeholder="Enter allergies separated by commas (e.g., Penicillin, Peanuts)"
                   onChange={(e) => handleArrayInput('allergies', e.target.value)}
-                  rows="3"
+                  rows={3}
                 />
               </div>
 
@@ -198,7 +203,7 @@ const Onboarding = ({ user }) => {
                   className="form-textarea"
                   placeholder="Enter medications separated by commas"
                   onChange={(e) => handleArrayInput('current_medications', e.target.value)}
-                  rows="3"
+                  rows={3}
                 />
               </div>
 

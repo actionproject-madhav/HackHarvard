@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser, updateUser } from '../services/api';
 import AccessibilityMenu from '../components/AccessibilityMenu';
+import { User } from '../services/types';
 import '../styles/Profile.css';
 
-const Profile = ({ user }) => {
+interface ProfileProps {
+  user: User;
+}
+
+const Profile: React.FC<ProfileProps> = ({ user }) => {
   const navigate = useNavigate();
-  const [isEditing, setIsEditing] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     name: user.name || '',
     email: user.email || '',
@@ -23,12 +28,12 @@ const Profile = ({ user }) => {
     accessibility_preferences: user.accessibility_preferences || {}
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleEmergencyContactChange = (e) => {
+  const handleEmergencyContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -39,12 +44,12 @@ const Profile = ({ user }) => {
     });
   };
 
-  const handleArrayInput = (field, value) => {
-    const items = value.split(',').map(item => item.trim()).filter(item => item);
+  const handleArrayInput = (field: string, value: string) => {
+    const items = value.split(',').map((item: string) => item.trim()).filter((item: string) => item);
     setFormData({ ...formData, [field]: items });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -179,7 +184,7 @@ const Profile = ({ user }) => {
                   value={formData.address}
                   onChange={handleChange}
                   className="form-textarea"
-                  rows="3"
+                  rows={3}
                   disabled={!isEditing}
                 />
               </div>
@@ -239,7 +244,7 @@ const Profile = ({ user }) => {
                     placeholder="Enter conditions separated by commas"
                     defaultValue={formData.medical_history.join(', ')}
                     onChange={(e) => handleArrayInput('medical_history', e.target.value)}
-                    rows="3"
+                    rows={3}
                   />
                 ) : (
                   <div className="tag-list">
@@ -262,7 +267,7 @@ const Profile = ({ user }) => {
                     placeholder="Enter allergies separated by commas"
                     defaultValue={formData.allergies.join(', ')}
                     onChange={(e) => handleArrayInput('allergies', e.target.value)}
-                    rows="3"
+                    rows={3}
                   />
                 ) : (
                   <div className="tag-list">
@@ -285,7 +290,7 @@ const Profile = ({ user }) => {
                     placeholder="Enter medications separated by commas"
                     defaultValue={formData.current_medications.join(', ')}
                     onChange={(e) => handleArrayInput('current_medications', e.target.value)}
-                    rows="3"
+                    rows={3}
                   />
                 ) : (
                   <div className="tag-list">
