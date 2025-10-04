@@ -23,9 +23,9 @@ import GeminiChatbot from './components/GeminiChatbot';
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
   const [emergencyDetected, setEmergencyDetected] = useState(false);
-  const [emergencyData, setEmergencyData] = useState(null);
+  const [emergencyData, setEmergencyData] = useState<any>(null);
   const [chatbotOpen, setChatbotOpen] = useState(false);
 
   useEffect(() => {
