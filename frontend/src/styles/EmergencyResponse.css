@@ -1,0 +1,414 @@
+/* Emergency Response Page */
+
+.emergency-response-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 50%, #FCA5A5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: emergencyPulse 2s ease-in-out infinite;
+}
+
+@keyframes emergencyPulse {
+  0%, 100% {
+    background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 50%, #FCA5A5 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, #FECACA 0%, #FCA5A5 50%, #F87171 100%);
+  }
+}
+
+.emergency-response-container {
+  max-width: 900px;
+  width: 100%;
+  background: white;
+  border-radius: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Header */
+.emergency-header {
+  background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.emergency-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.05) 10px,
+    rgba(255, 255, 255, 0.05) 20px
+  );
+  animation: stripes 20s linear infinite;
+}
+
+@keyframes stripes {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+
+.emergency-icon-large {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: iconPulse 1.5s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+  }
+}
+
+.emergency-icon-large svg {
+  width: 48px;
+  height: 48px;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.emergency-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+.emergency-header p {
+  font-size: 1.125rem;
+  margin: 0;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+}
+
+/* Emergency Steps */
+.emergency-steps {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.emergency-step {
+  display: flex;
+  gap: 1.5rem;
+  opacity: 0.4;
+  transition: all 0.5s ease;
+}
+
+.emergency-step.active {
+  opacity: 1;
+  animation: stepActivate 0.5s ease;
+}
+
+@keyframes stepActivate {
+  from {
+    opacity: 0.4;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.emergency-step.completed {
+  opacity: 0.7;
+}
+
+.step-icon-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  background: #F3F4F6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  border: 3px solid #E5E7EB;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.emergency-step.active .step-icon {
+  background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+  border-color: #DC2626;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2);
+  animation: iconBounce 1s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.emergency-step.completed .step-icon {
+  background: #10B981;
+  border-color: #10B981;
+}
+
+.step-connector {
+  width: 3px;
+  height: 40px;
+  background: #E5E7EB;
+  margin-top: 0.5rem;
+  transition: background 0.5s ease;
+}
+
+.step-connector.completed {
+  background: #10B981;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 0.5rem;
+}
+
+.step-content h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.step-status {
+  color: #6B7280;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.step-status p {
+  margin: 0.25rem 0;
+}
+
+/* Calling Animation */
+.calling-animation {
+  position: relative;
+}
+
+.phone-pulse {
+  width: 20px;
+  height: 20px;
+  background: #DC2626;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5rem;
+  animation: pulse 1.5s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+.connected-msg,
+.success-msg {
+  color: #10B981;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.complete-message p {
+  margin: 0.5rem 0;
+  color: #10B981;
+  font-weight: 600;
+}
+
+.redirect-msg {
+  color: #6B7280 !important;
+  font-style: italic;
+  font-weight: 400 !important;
+  margin-top: 1rem !important;
+}
+
+/* Info Boxes */
+.emergency-info-box {
+  background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+  border: 2px solid #BBF7D0;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  margin: 0 2rem 2rem;
+}
+
+.emergency-info-box h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #166534;
+  margin: 0 0 1rem 0;
+}
+
+.emergency-info-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.emergency-info-box li {
+  padding: 0.5rem 0;
+  color: #166534;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* Assessment Summary */
+.assessment-summary {
+  background: #F9FAFB;
+  border-top: 2px solid #E5E7EB;
+  border-bottom: 2px solid #E5E7EB;
+  padding: 2rem;
+}
+
+.assessment-summary h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0 0 1.5rem 0;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summary-item .label {
+  font-size: 0.875rem;
+  color: #6B7280;
+  font-weight: 600;
+}
+
+.summary-item .value {
+  font-size: 1rem;
+  color: #1F2937;
+  font-weight: 700;
+}
+
+.summary-item .value.danger {
+  color: #DC2626;
+}
+
+.summary-item .value.normal {
+  color: #10B981;
+}
+
+/* Emergency Contact Box */
+.emergency-contact-box {
+  background: #FEF2F2;
+  border: 2px solid #FEE2E2;
+  padding: 1.5rem 2rem;
+  margin: 0 2rem 2rem;
+  border-radius: 1rem;
+}
+
+.emergency-note {
+  margin: 0;
+  color: #991B1B;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.emergency-note strong {
+  font-weight: 700;
+}
+
+/* Error Container */
+.error-container {
+  text-align: center;
+  padding: 3rem;
+}
+
+.error-container h2 {
+  color: #1F2937;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .emergency-response-page {
+    padding: 1rem;
+  }
+
+  .emergency-header {
+    padding: 2rem 1.5rem;
+  }
+
+  .emergency-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .emergency-steps {
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .step-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .emergency-info-box,
+  .assessment-summary,
+  .emergency-contact-box {
+    margin: 0 1.5rem 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

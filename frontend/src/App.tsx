@@ -14,6 +14,8 @@ import AppointmentSummary from './pages/AppointmentSummary';
 import MedicationTracker from './pages/MedicationTracker';
 import Profile from './pages/Profile';
 import EducationHub from './pages/EducationHub';
+import EmergencyResponse from './pages/EmergencyResponse';
+import StrokeSummary from './pages/StrokeSummary';
 
 // Components
 import Navbar from './components/Navbar';
@@ -138,6 +140,16 @@ function App() {
             <Route 
               path="/education" 
               element={user ? <EducationHub user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/emergency-response" 
+              element={user ? <EmergencyResponse user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/stroke-summary" 
+              element={user ? <StrokeSummary user={user} /> : <Navigate to="/login" />} 
             />
           </Routes>
         </div>
