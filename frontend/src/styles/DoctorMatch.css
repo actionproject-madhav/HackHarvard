@@ -647,6 +647,56 @@
   margin-bottom: 2rem;
 }
 
+.view-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  background: #F9FAFB;
+  border-radius: 1rem;
+  width: fit-content;
+}
+
+.toggle-btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  background: transparent;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #6B7280;
+}
+
+.toggle-btn.active {
+  background: white;
+  color: #A51C30;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn:hover:not(.active) {
+  color: #1F2937;
+}
+
+.doctor-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.match-score {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .specialization-filters {
   display: flex;
   flex-wrap: wrap;

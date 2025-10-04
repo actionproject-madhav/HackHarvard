@@ -4,7 +4,14 @@ import math
 class DoctorMatcher:
     @staticmethod
     def match_doctor(symptom_report, user_location):
-        """Match patient with appropriate doctor based on symptoms and location"""
+        """
+        Match patient with appropriate doctor based on symptoms and location
+        Uses a scoring algorithm that considers:
+        - Specialization match (40%)
+        - Distance (30%)
+        - Rating (20%)
+        - Availability (10%)
+        """
         
         # Extract key information
         symptoms = symptom_report.get('symptoms', [])
@@ -12,11 +19,11 @@ class DoctorMatcher:
         ai_analysis = symptom_report.get('ai_analysis', '')
         
         # Determine specialization needed
-        specialization = DoctorMatcher._determine_specialization(symptoms, ai_analysis)
+        specializations = DoctorMatcher._determine_specialization(symptoms, ai_analysis)
         
-        # Find nearby doctors with that specialization
+        # Find doctors with matching specializations
         doctors = list(doctors_collection.find({
-            'specialization': {'$in': specialization}
+            'specialization': {'$in': specializations}
         }))
         
         if not doctors:
@@ -25,9 +32,18 @@ class DoctorMatcher:
                 'specialization': 'General Practice'
             }))
         
-        # Calculate distance and sort
-        if user_location:
-            for doctor in doctors:
+        # Calculate match scores
+        for doctor in doctors:
+            score = DoctorMatcher._calculate_match_score(
+                doctor, 
+                specializations, 
+                user_location, 
+                severity
+            )
+            doctor['match_score'] = score
+            
+            # Calculate distance
+            if user_location:
                 doctor_loc = doctor.get('location', {}).get('coordinates', {})
                 distance = DoctorMatcher._calculate_distance(
                     user_location.get('lat'), 
@@ -36,11 +52,69 @@ class DoctorMatcher:
                     doctor_loc.get('lng', 0)
                 )
                 doctor['distance'] = distance
-            
-            doctors.sort(key=lambda x: x.get('distance', float('inf')))
+            else:
+                doctor['distance'] = None
         
-        # Return top 5 matches
-        return doctors[:5]
+        # Sort by match score (highest first)
+        doctors.sort(key=lambda x: x.get('match_score', 0), reverse=True)
+        
+        # Return top 10 matches
+        return doctors[:10]
+    
+    @staticmethod
+    def _calculate_match_score(doctor, needed_specializations, user_location, severity):
+        """
+        Calculate match score for a doctor
+        Score range: 0-100
+        """
+        score = 0
+        
+        # 1. Specialization Match (40 points)
+        doctor_spec = doctor.get('specialization', '')
+        if doctor_spec in needed_specializations:
+            score += 40
+        elif doctor_spec == 'General Practice':
+            score += 20  # General practitioners get half points
+        
+        # 2. Distance Score (30 points)
+        if user_location:
+            doctor_loc = doctor.get('location', {}).get('coordinates', {})
+            distance = DoctorMatcher._calculate_distance(
+                user_location.get('lat'), 
+                user_location.get('lng'),
+                doctor_loc.get('lat', 0),
+                doctor_loc.get('lng', 0)
+            )
+            
+            # Closer is better: 30 points for <5km, decreasing to 0 at 50km
+            if distance < 5:
+                score += 30
+            elif distance < 10:
+                score += 25
+            elif distance < 20:
+                score += 15
+            elif distance < 50:
+                score += 5
+        else:
+            score += 15  # Default if no location
+        
+        # 3. Rating Score (20 points)
+        rating = doctor.get('rating', 0)
+        if rating >= 4.5:
+            score += 20
+        elif rating >= 4.0:
+            score += 15
+        elif rating >= 3.5:
+            score += 10
+        elif rating >= 3.0:
+            score += 5
+        
+        # 4. Availability Score (10 points)
+        availability = doctor.get('availability', {})
+        if availability.get('accepting_new_patients', True):
+            score += 10
+        
+        return round(score, 2)
     
     @staticmethod
     def _determine_specialization(symptoms, ai_analysis):
