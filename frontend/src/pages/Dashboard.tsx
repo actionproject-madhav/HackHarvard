@@ -42,14 +42,18 @@ const Dashboard = ({ user }: DashboardProps) => {
   const handleStrokeDetected = async (assessmentData: any) => {
     setShowStrokeAssessment(false);
     
-    // Save to database and trigger emergency flow
-    console.log('Stroke detected:', assessmentData);
-    
-    // Navigate to emergency flow
+    // Navigate based on stroke detection
     if (assessmentData.strokeDetected) {
-      alert('STROKE DETECTED! Initiating emergency protocol...');
-      // TODO: Implement emergency call simulation and auto-appointment
+      // EMERGENCY FLOW: Stroke detected
       navigate('/emergency-response', { state: { assessmentData } });
+    } else {
+      // NORMAL FLOW: No stroke detected, proceed to symptom reporting
+      navigate('/symptoms', { 
+        state: { 
+          fromAssessment: true,
+          assessmentData: assessmentData 
+        } 
+      });
     }
   };
 

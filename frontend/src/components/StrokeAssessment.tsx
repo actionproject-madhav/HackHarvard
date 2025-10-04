@@ -272,7 +272,7 @@ const StrokeAssessment = ({ user, onStrokeDetected, onCancel }: StrokeAssessment
   }, [currentStep, speak, analyzeFacialSymmetry, startListening]);
 
   // Complete assessment and determine if stroke detected
-  const completeAssessment = () => {
+  const completeAssessment = async () => {
     const faceResult = assessmentResults.face?.faceAnalysis;
     const speechResult = assessmentResults.speech?.speechClarity;
 
@@ -299,6 +299,15 @@ const StrokeAssessment = ({ user, onStrokeDetected, onCancel }: StrokeAssessment
         ? 'IMMEDIATE EMERGENCY CARE REQUIRED' 
         : 'No immediate stroke indicators detected'
     };
+
+    // Speak the result
+    if (strokeDetected) {
+      await speak('Stroke indicators detected. Initiating emergency protocol.');
+    } else {
+      await speak('No stroke detected. You will now proceed to symptom reporting.');
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     onStrokeDetected(assessmentData);
   };
