@@ -212,7 +212,7 @@ const SymptomReporting = ({ user }: SymptomReportingProps) => {
             {/* Multi-Select Type */}
             {currentQ.type === 'multi_select' && (
               <div className="multi-select-grid">
-                {currentQ.options?.map((option: string) => (
+                {(currentQ.options as string[])?.map((option: string) => (
                   <button
                     key={option}
                     className={`multi-select-option ${
