@@ -7,9 +7,10 @@ import '../styles/Onboarding.css';
 
 interface OnboardingProps {
   user: User;
+  onComplete: () => void;
 }
 
-const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
+const Onboarding: React.FC<OnboardingProps> = ({ user, onComplete}) => {
   const navigate = useNavigate();
   const [step, setStep] = useState<number>(1);
   const [formData, setFormData] = useState<OnboardingFormData>({
@@ -66,6 +67,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ user }) => {
     e.preventDefault();
     try {
       await completeOnboarding(user._id, formData);
+      onComplete();
       navigate('/dashboard');
     } catch (error) {
       console.error('Onboarding failed:', error);

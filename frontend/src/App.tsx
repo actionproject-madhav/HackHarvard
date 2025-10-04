@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -17,11 +17,12 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import EmergencyBanner from './components/EmergencyBanner';
 import StrokeDetector from './components/StrokeDetector';
+import { User } from './services/types';
 
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [emergencyDetected, setEmergencyDetected] = useState(false);
   const [emergencyData, setEmergencyData] = useState(null);
 
@@ -42,6 +43,14 @@ function App() {
     setUser(null);
     localStorage.removeItem('claritymd_user');
   };
+
+  const handleOnboardingComplete = useCallback(() => {
+    if (user) {
+      const updatedUser: User = { ...user, onboarding_completed: true };
+      setUser(updatedUser);
+      localStorage.setItem('claritymd_user', JSON.stringify(updatedUser));
+    }
+  }, [user])
 
   const handleEmergencyDetected = (data: any) => {
     setEmergencyDetected(true);
@@ -71,7 +80,7 @@ function App() {
             
             <Route 
               path="/onboarding" 
-              element={user ? <Onboarding user={user} /> : <Navigate to="/login" />} 
+              element={(user && !user.onboarding_completed) ? <Onboarding user={user} onComplete={handleOnboardingComplete} /> : <Navigate to="/dashboard" />} 
             />
             
             <Route 

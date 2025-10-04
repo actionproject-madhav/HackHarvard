@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUser, updateUser } from '../services/api';
+import { updateUser } from '../services/api';
 import AccessibilityMenu from '../components/AccessibilityMenu';
-import { User } from '../services/types';
+import { AccessibilityPreferences, User } from '../services/types';
 import '../styles/Profile.css';
 
 interface ProfileProps {
@@ -339,7 +339,7 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
 
       <AccessibilityMenu
         preferences={formData.accessibility_preferences}
-        onUpdate={(prefs) => setFormData({ ...formData, accessibility_preferences: prefs })}
+        onUpdate={(prefs: AccessibilityPreferences) => setFormData({ ...formData, accessibility_preferences: prefs })}
       />
     </div>
   );
