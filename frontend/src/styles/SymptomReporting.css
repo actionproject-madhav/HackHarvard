@@ -1,8 +1,8 @@
-/* Symptom Reporting - Brilliant.org Style */
+/* Symptom Reporting - Clean Modern Style */
 
 .symptom-reporting-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #F9FAFB;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,10 +48,9 @@
 }
 
 .progress-text {
-  color: white;
+  color: #6B7280;
   font-size: 0.875rem;
   font-weight: 600;
-  opacity: 0.9;
 }
 
 /* Question Card */
@@ -270,14 +269,14 @@
 }
 
 .navigation-buttons .btn-ghost {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: white;
+  color: #374151;
+  border: 2px solid #E5E7EB;
 }
 
 .navigation-buttons .btn-ghost:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: #F9FAFB;
+  border-color: #D1D5DB;
 }
 
 .navigation-buttons .btn-ghost:disabled {
@@ -314,7 +313,7 @@
 }
 
 .loading-container p {
-  color: white;
+  color: #374151;
   font-size: 1.25rem;
   font-weight: 600;
 }
@@ -322,8 +321,8 @@
 .spinner {
   width: 60px;
   height: 60px;
-  border: 6px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
+  border: 6px solid #E5E7EB;
+  border-top-color: #A51C30;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

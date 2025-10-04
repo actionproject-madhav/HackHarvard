@@ -17,6 +17,7 @@ import EducationHub from './pages/EducationHub';
 import EmergencyResponse from './pages/EmergencyResponse';
 import StrokeSummary from './pages/StrokeSummary';
 import SymptomReporting from './pages/SymptomReporting';
+import StrokeCheck from './pages/StrokeCheck';
 
 // Components
 import Navbar from './components/Navbar';
@@ -156,6 +157,11 @@ function App() {
             <Route 
               path="/stroke-summary" 
               element={user ? <StrokeSummary user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/stroke-check" 
+              element={user ? <StrokeCheck /> : <Navigate to="/login" />} 
             />
           </Routes>
         </div>

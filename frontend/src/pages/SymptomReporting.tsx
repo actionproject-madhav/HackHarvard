@@ -172,6 +172,22 @@ const SymptomReporting = ({ user }: SymptomReportingProps) => {
     );
   }
 
+  // Check if we should run stroke assessment first
+  const shouldRunStrokeCheck = currentQuestion === 0 && !location.state?.fromAssessment;
+
+  // Trigger stroke assessment automatically on first load
+  useEffect(() => {
+    if (shouldRunStrokeCheck && !location.state?.skipAssessment) {
+      // Navigate to a hidden stroke assessment
+      navigate('/stroke-check', { 
+        state: { 
+          returnTo: '/symptoms',
+          user: user 
+        } 
+      });
+    }
+  }, [shouldRunStrokeCheck, navigate, location.state, user]);
+
   return (
     <div className="symptom-reporting-page">
       <div className="reporting-container">
