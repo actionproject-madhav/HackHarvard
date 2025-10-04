@@ -194,22 +194,34 @@ const EducationHub = ({ user }: EducationHubProps) => {
         <div className="health-tips-section">
           <h2>Quick Health Tips</h2>
           <div className="tips-grid">
-            <div className="tip-card">
+            <div 
+              className="tip-card"
+              style={{ backgroundImage: 'url(/images/hydration.jpg)' }}
+            >
               <div className="tip-icon">💧</div>
               <h4>Stay Hydrated</h4>
               <p>Drink 8 glasses of water daily</p>
             </div>
-            <div className="tip-card">
+            <div 
+              className="tip-card"
+              style={{ backgroundImage: 'url(/images/exercise.jpg)' }}
+            >
               <div className="tip-icon">🚶</div>
               <h4>Move More</h4>
               <p>30 minutes of activity per day</p>
             </div>
-            <div className="tip-card">
+            <div 
+              className="tip-card"
+              style={{ backgroundImage: 'url(/images/sleep.jpg)' }}
+            >
               <div className="tip-icon">😴</div>
               <h4>Sleep Well</h4>
               <p>7-9 hours every night</p>
             </div>
-            <div className="tip-card">
+            <div 
+              className="tip-card"
+              style={{ backgroundImage: 'url(/images/meditation.jpg)' }}
+            >
               <div className="tip-icon">🧘</div>
               <h4>Reduce Stress</h4>
               <p>Practice mindfulness daily</p>
