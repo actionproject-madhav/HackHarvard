@@ -14,12 +14,13 @@ from routes.emergency import emergency_bp
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Enable CORS
+# Enable CORS for all routes
 CORS(app, resources={
-    r"/api/*": {
+    r"/*": {
         "origins": Config.CORS_ORIGINS,
-        "methods": ["GET", "POST", "PUT", "DELETE"],
-        "allow_headers": ["Content-Type", "Authorization"]
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
     }
 })
 
@@ -48,6 +49,6 @@ def health_check():
 
 if __name__ == '__main__':
     init_db()
-    print("🚀 ClarityMD Backend starting...")
-    print("📍 API running on http://localhost:5000")
+    print(" ClarityMD Backend starting...")
+    print(" API running on http://localhost:5000")
     app.run(debug=True, host='0.0.0.0', port=5000)
