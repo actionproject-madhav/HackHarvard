@@ -1,0 +1,99 @@
+.accessibility-menu {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+}
+
+.accessibility-trigger {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+}
+
+.accessibility-trigger:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+.accessibility-trigger svg {
+  width: 28px;
+  height: 28px;
+}
+
+.accessibility-panel {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 300px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-xl);
+}
+
+.accessibility-panel h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+}
+
+.accessibility-option {
+  margin-bottom: var(--spacing-md);
+}
+
+.accessibility-option label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.font-size-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.font-size-btn {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.font-size-btn:first-child {
+  font-size: 12px;
+}
+
+.font-size-btn:nth-child(2) {
+  font-size: 16px;
+}
+
+.font-size-btn:last-child {
+  font-size: 20px;
+}
+
+.font-size-btn:hover {
+  border-color: var(--primary);
+}
+
+.font-size-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
