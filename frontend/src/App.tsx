@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // Pages
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Onboarding from './pages/Onboarding';
 import Dashboard from './pages/Dashboard';
@@ -85,6 +86,11 @@ function App() {
           
           <Routes>
             <Route 
+              path="/" 
+              element={!user ? <LandingPage /> : <Navigate to="/dashboard" />} 
+            />
+            
+            <Route 
               path="/login" 
               element={!user ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />} 
             />
@@ -133,8 +139,6 @@ function App() {
               path="/education" 
               element={user ? <EducationHub user={user} /> : <Navigate to="/login" />} 
             />
-            
-            <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
           </Routes>
         </div>
       </Router>
