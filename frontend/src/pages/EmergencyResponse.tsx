@@ -46,9 +46,9 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
       // Step 4: Complete (wait 3 seconds then redirect)
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      // Save to database and redirect to dashboard
+      // Save to database and redirect to stroke summary
       await saveStrokeIncident();
-      navigate('/dashboard');
+      navigate('/stroke-summary');
     };
 
     if (assessmentData) {

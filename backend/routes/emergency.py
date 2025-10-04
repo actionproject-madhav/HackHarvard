@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from services.emergency_detector import EmergencyDetector
+from services.stroke_summary_generator import StrokeSummaryGenerator
 from models.stroke_incident import StrokeIncident
 from datetime import datetime
 
@@ -99,6 +100,35 @@ def get_stroke_incidents(user_id):
         return jsonify({
             'success': True,
             'incidents': incidents
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@emergency_bp.route('/stroke-summary/<user_id>', methods=['GET'])
+def get_stroke_summary(user_id):
+    """Generate stroke appointment summary for user"""
+    try:
+        # Get latest stroke incident
+        incident = StrokeIncident.get_latest_by_user(user_id)
+        
+        if not incident:
+            return jsonify({
+                'success': False,
+                'error': 'No stroke incident found for user'
+            }), 404
+        
+        # Get user data (in production, fetch from User model)
+        user_name = request.args.get('user_name', 'Patient')
+        
+        # Generate comprehensive summary
+        assessment_data = incident.get('assessment_data', {})
+        summary = StrokeSummaryGenerator.generate_stroke_summary(user_name, assessment_data)
+        
+        return jsonify({
+            'success': True,
+            'summary': summary,
+            'incident_id': incident['_id']
         }), 200
         
     except Exception as e:
