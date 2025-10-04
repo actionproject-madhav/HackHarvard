@@ -14,6 +14,7 @@ import AppointmentSummary from './pages/AppointmentSummary';
 import MedicationTracker from './pages/MedicationTracker';
 import Profile from './pages/Profile';
 import EducationHub from './pages/EducationHub';
+import EmergencyResponse from './pages/EmergencyResponse';
 
 // Components
 import Navbar from './components/Navbar';
@@ -138,6 +139,11 @@ function App() {
             <Route 
               path="/education" 
               element={user ? <EducationHub user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/emergency-response" 
+              element={user ? <EmergencyResponse user={user} /> : <Navigate to="/login" />} 
             />
           </Routes>
         </div>
