@@ -5,26 +5,27 @@ This guide explains how to set up environment variables for the project.
 ## Important Notes
 
 - **Never commit `.env` files to git** - they contain sensitive information
-- Always use `.env.example` files as templates
-- Copy `.env.example` to `.env` and fill in your actual values
+- The `.env` files are already created with placeholder values
+- Replace the placeholder values with your actual credentials
 
 ## Backend Setup
 
 1. Navigate to the `backend/` directory
-2. Copy the example file: `cp .env.example .env`
-3. Edit `.env` and fill in your actual values:
-   - Get Google OAuth credentials from [Google Cloud Console](https://console.cloud.google.com/)
-   - Get Gemini API key from [Google AI Studio](https://aistudio.google.com/)
-   - Get Google Maps API key from [Google Cloud Console](https://console.cloud.google.com/)
-   - Generate a secure secret key for Flask
+2. Edit the existing `.env` file and replace placeholder values:
+   - `MONGO_URI`: Your MongoDB connection string
+   - `GOOGLE_CLIENT_ID`: Get from [Google Cloud Console](https://console.cloud.google.com/)
+   - `GOOGLE_CLIENT_SECRET`: Get from [Google Cloud Console](https://console.cloud.google.com/)
+   - `GEMINI_API_KEY`: Get from [Google AI Studio](https://aistudio.google.com/)
+   - `GOOGLE_MAPS_API_KEY`: Get from [Google Cloud Console](https://console.cloud.google.com/)
+   - `SECRET_KEY`: Generate a secure secret key for Flask
 
 ## Frontend Setup
 
 1. Navigate to the `frontend/` directory
-2. Copy the example file: `cp .env.example .env`
-3. Edit `.env` and fill in your actual values:
-   - Set the correct API URL for your backend
-   - Add any required API keys for frontend functionality
+2. Edit the existing `.env` file and replace placeholder values:
+   - `REACT_APP_API_URL`: Your backend API URL (default: http://localhost:5000)
+   - `REACT_APP_API_BASE_URL`: Your backend API base URL (default: http://localhost:5000/api)
+   - `REACT_APP_GOOGLE_MAPS_API_KEY`: Google Maps API key if used in frontend
 
 ## Security Best Practices
 
@@ -37,9 +38,9 @@ This guide explains how to set up environment variables for the project.
 ## Git Configuration
 
 The `.gitignore` files are configured to:
-- Ignore all `.env` files
-- Allow `.env.example` files to be committed
+- Ignore all `.env` files (they will never be committed to git)
 - Ignore common build artifacts and dependencies
+- Protect sensitive environment data
 
 ## Troubleshooting
 
