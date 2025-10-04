@@ -339,3 +339,16 @@
     width: 100%;
   }
 }
+/* === MISSING APPOINTMENT CLASSES === */
+
+.schedule-section {
+  margin: 2rem 0;
+}
+
+.schedule-section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 1.5rem;
+}
+

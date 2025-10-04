@@ -52,10 +52,20 @@ def complete_onboarding(user_id):
                 'current_medications': data.get('current_medications', []),
                 'preferred_language': data.get('preferred_language', 'en'),
                 'accessibility_preferences': data.get('accessibility_preferences', {}),
-                'onboarding_completed': True
+                'onboarding_completed': True,
+                'updated_at': datetime.utcnow()
             }}
         )
         
-        return jsonify({'success': True, 'message': 'Onboarding completed'}), 200
+        # Fetch and return updated user
+        updated_user = users_collection.find_one({'_id': ObjectId(user_id)})
+        if updated_user:
+            updated_user['_id'] = str(updated_user['_id'])
+        
+        return jsonify({
+            'success': True, 
+            'message': 'Onboarding completed',
+            'user': updated_user
+        }), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500

@@ -12,11 +12,13 @@ import Appointment from './pages/Appointment';
 import AppointmentSummary from './pages/AppointmentSummary';
 import MedicationTracker from './pages/MedicationTracker';
 import Profile from './pages/Profile';
+import EducationHub from './pages/EducationHub';
 
 // Components
 import Navbar from './components/Navbar';
 import EmergencyBanner from './components/EmergencyBanner';
 import StrokeDetector from './components/StrokeDetector';
+import GeminiChatbot from './components/GeminiChatbot';
 import { User } from './services/types';
 
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
@@ -24,7 +26,8 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_
 function App() {
   const [user, setUser] = useState<User | null>(null);
   const [emergencyDetected, setEmergencyDetected] = useState(false);
-  const [emergencyData, setEmergencyData] = useState(null);
+  const [emergencyData, setEmergencyData] = useState<any>(null);
+  const [chatbotOpen, setChatbotOpen] = useState(false);
 
   useEffect(() => {
     // Check for stored user
@@ -72,6 +75,14 @@ function App() {
           
           {user && <StrokeDetector onEmergencyDetected={handleEmergencyDetected} />}
           
+          {user && user.onboarding_completed && (
+            <GeminiChatbot 
+              user={user} 
+              isOpen={chatbotOpen}
+              onToggle={() => setChatbotOpen(!chatbotOpen)}
+            />
+          )}
+          
           <Routes>
             <Route 
               path="/login" 
@@ -116,6 +127,11 @@ function App() {
             <Route 
               path="/profile" 
               element={user ? <Profile user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/education" 
+              element={user ? <EducationHub user={user} /> : <Navigate to="/login" />} 
             />
             
             <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />

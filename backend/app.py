@@ -10,6 +10,7 @@ from routes.doctors import doctors_bp
 from routes.appointments import appointments_bp
 from routes.symptoms import symptoms_bp
 from routes.emergency import emergency_bp
+from routes.gemini import gemini_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -31,6 +32,7 @@ app.register_blueprint(doctors_bp, url_prefix='/api/doctors')
 app.register_blueprint(appointments_bp, url_prefix='/api/appointments')
 app.register_blueprint(symptoms_bp, url_prefix='/api/symptoms')
 app.register_blueprint(emergency_bp, url_prefix='/api/emergency')
+app.register_blueprint(gemini_bp, url_prefix='/api/gemini')
 
 @app.route('/')
 def index():

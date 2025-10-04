@@ -543,3 +543,28 @@
     opacity: 1;
   }
 }
+
+/* === MISSING NAVBAR CLASSES === */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.chevron-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s;
+}
+
+.user-menu-button:hover .chevron-icon {
+  transform: rotate(180deg);
+}
+
