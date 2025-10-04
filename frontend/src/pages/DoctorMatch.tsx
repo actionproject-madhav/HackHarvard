@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getDoctors, findNearbyDoctors } from "../services/api";
+import HospitalFinder from "../components/HospitalFinder";
 import "../styles/DoctorMatch.css";
 
 interface DoctorMatchProps {
@@ -14,6 +15,8 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
   const [aiAnalysis, setAiAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
+  const [userLocation, setUserLocation] = useState<any>(null);
+  const [showHospitals, setShowHospitals] = useState(false);
 
   const specializations = [
     "All Specializations",
@@ -42,6 +45,7 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
     if (location.state?.matchedDoctors) {
       setDoctors(location.state.matchedDoctors);
       setAiAnalysis(location.state.aiAnalysis);
+      setUserLocation(location.state.userLocation);
       setLoading(false);
     } else {
       loadDoctors();
@@ -107,25 +111,48 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
         )}
 
         <div className="filters-section">
-          <div className="specialization-filters">
-            {specializations.map((spec) => (
-              <button
-                key={spec}
-                onClick={() => handleSpecializationFilter(spec)}
-                className={`filter-btn ${
-                  selectedSpecialization === spec ? "active" : ""
-                }`}
-              >
-                {spec}
-              </button>
-            ))}
+          <div className="view-toggle">
+            <button 
+              className={`toggle-btn ${!showHospitals ? 'active' : ''}`}
+              onClick={() => setShowHospitals(false)}
+            >
+              👨‍⚕️ Doctors
+            </button>
+            <button 
+              className={`toggle-btn ${showHospitals ? 'active' : ''}`}
+              onClick={() => setShowHospitals(true)}
+            >
+              🏥 Hospitals
+            </button>
           </div>
+
+          {!showHospitals && (
+            <div className="specialization-filters">
+              {specializations.map((spec) => (
+                <button
+                  key={spec}
+                  onClick={() => handleSpecializationFilter(spec)}
+                  className={`filter-btn ${
+                    selectedSpecialization === spec ? "active" : ""
+                  }`}
+                >
+                  {spec}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="doctors-grid">
-          {doctors.length > 0 ? (
-            doctors.map((doctor: any) => (
-              <div key={doctor._id} className="doctor-card">
+        {showHospitals ? (
+          <HospitalFinder 
+            userLocation={userLocation} 
+            specialization={selectedSpecialization !== "All Specializations" ? selectedSpecialization : undefined}
+          />
+        ) : (
+          <div className="doctors-grid">
+            {doctors.length > 0 ? (
+              doctors.map((doctor: any) => (
+                <div key={doctor._id} className="doctor-card">
                 <div className="doctor-card-header">
                   <img
                     src={
@@ -144,7 +171,14 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
                 </div>
 
                 <div className="doctor-info">
-                  <h3>{doctor.name}</h3>
+                  <div className="doctor-name-row">
+                    <h3>{doctor.name}</h3>
+                    {doctor.match_score && (
+                      <span className="match-score">
+                        {doctor.match_score}% Match
+                      </span>
+                    )}
+                  </div>
                   <p className="doctor-specialization">
                     {doctor.specialization}
                   </p>
@@ -254,7 +288,8 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
               <p>Try adjusting your filters</p>
             </div>
           )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

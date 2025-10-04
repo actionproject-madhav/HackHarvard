@@ -16,6 +16,7 @@ import Profile from './pages/Profile';
 import EducationHub from './pages/EducationHub';
 import EmergencyResponse from './pages/EmergencyResponse';
 import StrokeSummary from './pages/StrokeSummary';
+import SymptomReporting from './pages/SymptomReporting';
 
 // Components
 import Navbar from './components/Navbar';
@@ -109,6 +110,11 @@ function App() {
             
             <Route 
               path="/symptoms" 
+              element={user ? <SymptomReporting user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/symptoms-old" 
               element={user ? <SymptomChecker user={user} /> : <Navigate to="/login" />} 
             />
             
