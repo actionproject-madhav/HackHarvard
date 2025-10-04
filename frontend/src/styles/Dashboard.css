@@ -1,36 +1,37 @@
 .dashboard-page {
   min-height: calc(100vh - 70px);
-  padding: var(--spacing-2xl) 0;
+  padding: var(--spacing-3xl) 0;
   background: var(--bg-primary);
 }
 
 .dashboard-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
 }
 
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .dashboard-header h1 {
-  font-size: 2rem;
+  font-size: 2.25rem;
   margin-bottom: var(--spacing-xs);
+  font-weight: 700;
 }
 
 .dashboard-subtitle {
-  font-size: 1rem;
+  font-size: 1.0625rem;
   color: var(--text-secondary);
   margin: 0;
 }
 
 .dashboard-grid {
   display: grid;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-xl);
   grid-template-columns: repeat(12, 1fr);
 }
 
@@ -41,11 +42,12 @@
 .quick-actions-section h2 {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-lg);
+  font-weight: 600;
 }
 
 .action-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--spacing-lg);
 }
 
@@ -53,45 +55,70 @@
   background: var(--bg-elevated);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(165, 28, 48, 0.02) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.action-card:hover::before {
+  opacity: 1;
 }
 
 .action-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--primary);
+  border-color: rgba(165, 28, 48, 0.2);
 }
 
 .action-icon {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.action-card:hover .action-icon {
+  transform: scale(1.1);
 }
 
 .action-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   color: var(--primary);
 }
 
 .action-card h3 {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   color: var(--text-primary);
   margin: 0;
+  font-weight: 600;
 }
 
 .action-card p {
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: var(--text-tertiary);
   margin: 0;
+  line-height: 1.5;
 }
 
 .appointments-section {
@@ -99,7 +126,7 @@
   background: var(--bg-elevated);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
 }
 
 .section-header {
@@ -112,16 +139,19 @@
 .section-header h2 {
   font-size: 1.25rem;
   margin: 0;
-}
-
-.view-all-link {
-  font-size: 0.875rem;
-  color: var(--primary);
-  text-decoration: none;
   font-weight: 600;
 }
 
+.view-all-link {
+  font-size: 0.9375rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
 .view-all-link:hover {
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 
@@ -137,12 +167,13 @@
   padding: var(--spacing-md);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
-  transition: all 0.2s ease;
+  transition: all var(--transition-base);
 }
 
 .appointment-item:hover {
-  background: var(--bg-primary);
-  border-color: var(--primary);
+  background: var(--bg-hover);
+  border-color: rgba(165, 28, 48, 0.2);
+  transform: translateX(4px);
 }
 
 .appointment-date {
@@ -150,9 +181,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(165, 28, 48, 0.1);
+  background: rgba(165, 28, 48, 0.06);
   border-radius: var(--radius-md);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
   min-width: 60px;
 }
 
@@ -167,6 +198,8 @@
   font-size: 0.75rem;
   color: var(--primary);
   text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .appointment-details {
@@ -176,6 +209,7 @@
 .appointment-details h4 {
   font-size: 1rem;
   margin-bottom: var(--spacing-xs);
+  font-weight: 600;
 }
 
 .appointment-details p {
@@ -195,12 +229,13 @@
   background: var(--bg-elevated);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
 }
 
 .insights-section h2 {
   font-size: 1.25rem;
   margin-bottom: var(--spacing-lg);
+  font-weight: 600;
 }
 
 .insight-cards {
@@ -210,35 +245,25 @@
 }
 
 .insight-card {
-  display: flex;
-  gap: var(--spacing-md);
   padding: var(--spacing-md);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
+  transition: all var(--transition-base);
 }
 
-.insight-icon {
-  font-size: 2rem;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.insight-content {
-  flex: 1;
+.insight-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-medium);
 }
 
 .insight-content h4 {
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
 }
 
 .insight-content p {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: var(--text-tertiary);
   margin: 0;
 }
@@ -247,7 +272,7 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  margin: var(--spacing-xs) 0;
+  margin: var(--spacing-sm) 0;
 }
 
 .progress-bar-small {
@@ -262,6 +287,7 @@
   height: 100%;
   background: var(--success);
   border-radius: var(--radius-full);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .insight-progress span {
@@ -271,14 +297,14 @@
 }
 
 .health-score {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--primary);
   margin: var(--spacing-xs) 0;
 }
 
 .reminder-text {
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: var(--text-primary);
   margin: var(--spacing-xs) 0 0 0;
 }
@@ -288,7 +314,7 @@
   background: var(--bg-elevated);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
 }
 
 .activity-list {
@@ -304,17 +330,18 @@
   padding: var(--spacing-md);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
-  transition: all 0.2s ease;
+  transition: all var(--transition-base);
 }
 
 .activity-item:hover {
-  background: var(--bg-primary);
+  background: var(--bg-hover);
+  transform: translateX(4px);
 }
 
 .activity-icon {
   width: 40px;
   height: 40px;
-  background: rgba(165, 28, 48, 0.1);
+  background: rgba(165, 28, 48, 0.06);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -351,25 +378,26 @@
 
 .empty-state {
   text-align: center;
-  padding: var(--spacing-2xl) var(--spacing-lg);
+  padding: var(--spacing-3xl) var(--spacing-lg);
 }
 
 .empty-state svg {
   width: 64px;
   height: 64px;
   color: var(--text-tertiary);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.5;
 }
 
 .empty-state p {
   color: var(--text-tertiary);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .emergency-info-banner {
-  margin-top: var(--spacing-2xl);
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
-  border: 2px solid rgba(220, 38, 38, 0.3);
+  margin-top: var(--spacing-3xl);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.06) 0%, rgba(220, 38, 38, 0.02) 100%);
+  border: 1.5px solid rgba(220, 38, 38, 0.2);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   display: flex;
@@ -377,8 +405,10 @@
   gap: var(--spacing-lg);
 }
 
-.emergency-info-icon {
-  font-size: 3rem;
+.emergency-info-icon svg {
+  width: 32px;
+  height: 32px;
+  color: var(--error);
 }
 
 .emergency-info-text {
@@ -386,9 +416,10 @@
 }
 
 .emergency-info-text h3 {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   margin-bottom: var(--spacing-xs);
   color: var(--error);
+  font-weight: 600;
 }
 
 .emergency-info-text p {

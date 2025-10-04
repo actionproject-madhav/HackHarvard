@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-2xl) var(--spacing-lg);
+  padding: var(--spacing-3xl) var(--spacing-lg);
   background: var(--bg-primary);
 }
 
@@ -12,17 +12,17 @@
   width: 100%;
   background: var(--bg-elevated);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-3xl);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-light);
 }
 
 .onboarding-progress {
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .progress-bar {
-  height: 8px;
+  height: 6px;
   background: var(--border-light);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -31,8 +31,8 @@
 
 .progress-fill {
   height: 100%;
-  background: var(--primary);
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: var(--radius-full);
 }
 
@@ -41,38 +41,41 @@
   font-size: 0.875rem;
   color: var(--text-tertiary);
   margin: 0;
+  font-weight: 500;
 }
 
 .onboarding-step {
-  animation: fadeIn 0.3s ease;
+  animation: stepFade 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes fadeIn {
+@keyframes stepFade {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 .onboarding-step h2 {
   font-size: 1.75rem;
   margin-bottom: var(--spacing-sm);
+  font-weight: 700;
 }
 
 .step-description {
   font-size: 1rem;
   color: var(--text-secondary);
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  line-height: 1.6;
 }
 
 .button-group {
   display: flex;
   gap: var(--spacing-md);
-  margin-top: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
 }
 
 .button-group .btn {
@@ -80,14 +83,15 @@
 }
 
 .accessibility-section {
-  margin-top: var(--spacing-xl);
-  padding-top: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
+  padding-top: var(--spacing-2xl);
   border-top: 1px solid var(--border-light);
 }
 
 .accessibility-section h3 {
   font-size: 1.125rem;
   margin-bottom: var(--spacing-xs);
+  font-weight: 600;
 }
 
 .accessibility-section p {
@@ -100,4 +104,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+}
+
+@media (max-width: 480px) {
+  .onboarding-container {
+    padding: var(--spacing-xl);
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
 }

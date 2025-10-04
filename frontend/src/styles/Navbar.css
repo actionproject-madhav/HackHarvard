@@ -4,13 +4,14 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .navbar-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
   height: 70px;
   display: flex;
   align-items: center;
@@ -24,20 +25,25 @@
   text-decoration: none;
   color: var(--text-primary);
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
+  transition: opacity var(--transition-fast);
+}
+
+.navbar-logo:hover {
+  opacity: 0.8;
 }
 
 .logo-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--primary);
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  font-size: 1.25rem;
+  font-weight: 700;
+  font-size: 1.125rem;
 }
 
 .logo-text {
@@ -46,7 +52,7 @@
 
 .navbar-links {
   display: flex;
-  gap: var(--spacing-md);
+  gap: var(--spacing-xs);
   align-items: center;
 }
 
@@ -54,15 +60,32 @@
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  font-size: 15px;
-  padding: 8px 16px;
+  font-size: 0.9375rem;
+  padding: 8px 14px;
   border-radius: var(--radius-md);
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transition: transform var(--transition-fast);
 }
 
 .nav-link:hover {
   color: var(--primary);
-  background: rgba(165, 28, 48, 0.05);
+  background: rgba(165, 28, 48, 0.04);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
 }
 
 .navbar-user {
@@ -73,12 +96,12 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: 6px 12px;
+  padding: 6px 10px;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-full);
   background: var(--bg-secondary);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .user-menu-button:hover {
@@ -91,11 +114,12 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid var(--border-light);
 }
 
 .user-name {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.9375rem;
   color: var(--text-primary);
 }
 
@@ -103,6 +127,11 @@
   width: 16px;
   height: 16px;
   color: var(--text-tertiary);
+  transition: transform var(--transition-fast);
+}
+
+.user-menu-button:hover .chevron-icon {
+  transform: translateY(2px);
 }
 
 .user-dropdown {
@@ -115,6 +144,18 @@
   box-shadow: var(--shadow-lg);
   min-width: 200px;
   overflow: hidden;
+  animation: dropdownSlide 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdown-item {
@@ -124,24 +165,29 @@
   padding: 12px 16px;
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.9375rem;
   font-weight: 500;
   border: none;
   background: none;
   width: 100%;
   text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .dropdown-item:hover {
-  background: var(--bg-primary);
+  background: var(--bg-hover);
   color: var(--primary);
 }
 
 .dropdown-icon {
   width: 18px;
   height: 18px;
+  color: var(--text-tertiary);
+}
+
+.dropdown-item:hover .dropdown-icon {
+  color: var(--primary);
 }
 
 @media (max-width: 768px) {
@@ -151,5 +197,9 @@
   
   .user-name {
     display: none;
+  }
+  
+  .navbar-container {
+    padding: 0 var(--spacing-md);
   }
 }

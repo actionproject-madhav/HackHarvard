@@ -1,20 +1,20 @@
 .appointment-summary-page {
   min-height: calc(100vh - 70px);
-  padding: var(--spacing-2xl) 0;
+  padding: var(--spacing-3xl) 0;
   background: var(--bg-primary);
 }
 
 .summary-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
 }
 
 .summary-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .back-btn {
@@ -27,12 +27,14 @@
   background: var(--bg-elevated);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-base);
+  font-weight: 500;
 }
 
 .back-btn:hover {
   border-color: var(--primary);
   color: var(--primary);
+  transform: translateX(-4px);
 }
 
 .back-btn svg {
@@ -43,6 +45,7 @@
 .summary-header h1 {
   font-size: 2rem;
   margin: 0;
+  font-weight: 700;
 }
 
 .summary-actions {
@@ -59,8 +62,21 @@
   background: var(--bg-elevated);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-2xl);
-  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-3xl);
+  margin-bottom: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  animation: cardSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes cardSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .summary-badge {
@@ -68,8 +84,8 @@
   align-items: center;
   gap: var(--spacing-xs);
   padding: 8px 16px;
-  background: linear-gradient(135deg, rgba(165, 28, 48, 0.1) 0%, rgba(165, 28, 48, 0.05) 100%);
-  border: 1px solid rgba(165, 28, 48, 0.3);
+  background: linear-gradient(135deg, rgba(165, 28, 48, 0.08) 0%, rgba(165, 28, 48, 0.04) 100%);
+  border: 1px solid rgba(165, 28, 48, 0.2);
   border-radius: var(--radius-full);
   color: var(--primary);
   font-size: 0.875rem;
@@ -86,6 +102,7 @@
   font-size: 1.75rem;
   margin-bottom: var(--spacing-lg);
   color: var(--text-primary);
+  font-weight: 700;
 }
 
 .summary-text {
@@ -97,6 +114,7 @@
   background: var(--bg-primary);
   border-radius: var(--radius-md);
   border-left: 4px solid var(--primary);
+  box-shadow: var(--shadow-xs);
 }
 
 .summary-section {
@@ -106,9 +124,13 @@
 }
 
 .summary-section h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   margin-bottom: var(--spacing-md);
   color: var(--text-primary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .summary-section p {
@@ -127,8 +149,9 @@
   display: flex;
   gap: var(--spacing-md);
   padding: var(--spacing-md);
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.06);
   border-radius: var(--radius-md);
+  border-left: 3px solid #2563EB;
 }
 
 .footer-info svg {
@@ -143,6 +166,7 @@
   font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0;
+  line-height: 1.6;
 }
 
 .next-steps-card {
@@ -150,11 +174,14 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  animation: cardSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
 }
 
 .next-steps-card h3 {
   font-size: 1.25rem;
   margin-bottom: var(--spacing-lg);
+  font-weight: 600;
 }
 
 .next-steps-list {
@@ -173,6 +200,14 @@
   padding: var(--spacing-md);
   background: var(--bg-primary);
   border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.next-steps-list li:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-light);
+  transform: translateX(4px);
 }
 
 .next-steps-list svg {
@@ -185,36 +220,44 @@
 .next-steps-list span {
   font-size: 0.9375rem;
   color: var(--text-primary);
+  font-weight: 500;
 }
 
 .summary-error {
   text-align: center;
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-3xl);
   background: var(--bg-elevated);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
 }
 
 .summary-error h2 {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-md);
+  font-weight: 600;
 }
 
 .summary-error p {
   color: var(--text-tertiary);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 @media print {
   .summary-header,
   .next-steps-card,
-  .navbar {
+  .navbar,
+  .summary-actions {
     display: none !important;
   }
   
   .summary-card {
     box-shadow: none;
     border: none;
+  }
+  
+  .summary-page {
+    background: white;
   }
 }
 
@@ -227,9 +270,15 @@
   
   .summary-actions {
     width: 100%;
+    flex-direction: column;
   }
   
   .summary-actions button {
     flex: 1;
+    width: 100%;
+  }
+  
+  .summary-card {
+    padding: var(--spacing-xl);
   }
 }

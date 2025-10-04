@@ -1,23 +1,24 @@
 .doctor-match-page {
   min-height: calc(100vh - 70px);
-  padding: var(--spacing-2xl) 0;
+  padding: var(--spacing-3xl) 0;
   background: var(--bg-primary);
 }
 
 .doctor-match-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
 }
 
 .doctor-match-header {
   text-align: center;
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .doctor-match-header h1 {
   font-size: 2.5rem;
   margin-bottom: var(--spacing-sm);
+  font-weight: 700;
 }
 
 .doctor-match-header p {
@@ -26,11 +27,12 @@
 }
 
 .ai-analysis-card {
-  background: linear-gradient(135deg, rgba(165, 28, 48, 0.05) 0%, rgba(165, 28, 48, 0.02) 100%);
-  border: 2px solid rgba(165, 28, 48, 0.2);
+  background: linear-gradient(135deg, rgba(165, 28, 48, 0.04) 0%, rgba(165, 28, 48, 0.01) 100%);
+  border: 1.5px solid rgba(165, 28, 48, 0.15);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
+  box-shadow: var(--shadow-sm);
 }
 
 .ai-analysis-header {
@@ -47,21 +49,22 @@
 }
 
 .ai-analysis-header h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--primary);
   margin: 0;
+  font-weight: 600;
 }
 
 .ai-analysis-content p {
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.8;
   color: var(--text-primary);
   margin: 0;
   white-space: pre-line;
 }
 
 .filters-section {
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .specialization-filters {
@@ -72,32 +75,35 @@
 }
 
 .filter-btn {
-  padding: 10px 20px;
-  border: 2px solid var(--border-light);
+  padding: 10px 18px;
+  border: 1.5px solid var(--border-light);
   border-radius: var(--radius-full);
   background: var(--bg-elevated);
   color: var(--text-secondary);
   font-size: 0.9375rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-base);
 }
 
 .filter-btn:hover {
   border-color: var(--primary);
   color: var(--primary);
+  background: rgba(165, 28, 48, 0.04);
+  transform: translateY(-2px);
 }
 
 .filter-btn.active {
   background: var(--primary);
   border-color: var(--primary);
   color: white;
+  box-shadow: var(--shadow-sm);
 }
 
 .doctors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: var(--spacing-xl);
 }
 
 .doctor-card {
@@ -105,22 +111,23 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
 }
 
 .doctor-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
-  border-color: var(--primary);
+  border-color: rgba(165, 28, 48, 0.2);
 }
 
 .doctor-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .doctor-avatar {
@@ -129,6 +136,11 @@
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--border-light);
+  transition: transform var(--transition-base);
+}
+
+.doctor-card:hover .doctor-avatar {
+  transform: scale(1.05);
 }
 
 .doctor-badge {
@@ -139,8 +151,8 @@
 
 .distance-badge {
   font-size: 0.75rem;
-  padding: 4px 8px;
-  background: rgba(165, 28, 48, 0.1);
+  padding: 4px 10px;
+  background: rgba(165, 28, 48, 0.06);
   color: var(--primary);
   border-radius: var(--radius-md);
   font-weight: 600;
@@ -151,8 +163,9 @@
 }
 
 .doctor-info h3 {
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   margin-bottom: var(--spacing-xs);
+  font-weight: 600;
 }
 
 .doctor-specialization {
@@ -201,7 +214,7 @@
 .doctor-bio {
   font-size: 0.9375rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: var(--spacing-md);
 }
 
@@ -240,7 +253,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-md);
-  background: rgba(45, 119, 56, 0.1);
+  background: rgba(45, 119, 56, 0.06);
   border-radius: var(--radius-md);
   margin-bottom: var(--spacing-md);
 }
@@ -260,6 +273,7 @@
 .doctor-actions {
   display: flex;
   gap: var(--spacing-sm);
+  margin-top: auto;
 }
 
 .doctor-actions .btn {
@@ -269,14 +283,15 @@
 .no-doctors {
   grid-column: 1 / -1;
   text-align: center;
-  padding: var(--spacing-2xl);
+  padding: var(--spacing-3xl);
 }
 
 .no-doctors svg {
   width: 80px;
   height: 80px;
   color: var(--text-tertiary);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.4;
 }
 
 .no-doctors h3 {
