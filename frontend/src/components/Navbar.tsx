@@ -33,16 +33,20 @@ const Navbar = ({ user, onLogout }: NavbarProps) => {
         </div>
 
         <div className="navbar-user">
-          <button 
-            className="user-menu-button"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
+          <Link to="/profile" className="user-profile-link">
             <img 
               src={user.profile_picture || 'https://via.placeholder.com/40'} 
               alt={user.name}
               className="user-avatar"
             />
             <span className="user-name">{user.name}</span>
+          </Link>
+          
+          <button 
+            className="user-menu-toggle"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
             <svg className="chevron-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>

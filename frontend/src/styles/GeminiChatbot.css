@@ -307,19 +307,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 0.875rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.message-avatar.bot {
   background: linear-gradient(135deg, #A51C30 0%, #C02942 100%);
-  color: white;
 }
 
-.message-avatar.user {
-  background: linear-gradient(135deg, #0066CC 0%, #004C99 100%);
-  color: white;
+.message-avatar svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+.message.user .message-avatar {
+  background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+}
+
+.message.assistant .message-avatar {
+  background: linear-gradient(135deg, #A51C30 0%, #C02942 100%);
 }
 
 .message-content {
