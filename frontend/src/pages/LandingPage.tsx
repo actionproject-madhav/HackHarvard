@@ -152,7 +152,7 @@ const LandingPage: React.FC = () => {
         <div className="demo-box">
           <h3>🚨 Stroke Detection Demo</h3>
           <p>Watch how our AI can detect early warning signs of strokes in real-time, helping patients get care when every second counts.</p>
-          <a href="#" className="demo-link">View Stroke Detection Demo →</a>
+          <a href="/login" className="demo-link">Login to View Stroke Detection Demo →</a>
         </div>
       </section>
 
