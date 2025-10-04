@@ -1,5 +1,5 @@
 from datetime import datetime
-from config import db
+from utils.db import db
 from bson import ObjectId
 
 class StrokeIncident:
