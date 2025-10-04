@@ -1,25 +1,26 @@
 .medication-tracker-page {
   min-height: calc(100vh - 70px);
-  padding: var(--spacing-2xl) 0;
+  padding: var(--spacing-3xl) 0;
   background: var(--bg-primary);
 }
 
 .medication-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl);
 }
 
 .medication-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .medication-header h1 {
   font-size: 2.5rem;
   margin-bottom: var(--spacing-sm);
+  font-weight: 700;
 }
 
 .medication-header p {
@@ -32,12 +33,26 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
+  box-shadow: var(--shadow-sm);
+  animation: formSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes formSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .add-medication-form h3 {
   font-size: 1.25rem;
   margin-bottom: var(--spacing-lg);
+  font-weight: 600;
 }
 
 .today-schedule {
@@ -45,12 +60,14 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
+  box-shadow: var(--shadow-sm);
 }
 
 .today-schedule h2 {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-lg);
+  font-weight: 600;
 }
 
 .schedule-timeline {
@@ -67,21 +84,22 @@
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
-  transition: all 0.2s ease;
+  transition: all var(--transition-base);
 }
 
 .schedule-item:hover {
-  border-color: var(--primary);
+  border-color: rgba(165, 28, 48, 0.2);
   box-shadow: var(--shadow-sm);
+  transform: translateX(4px);
 }
 
 .schedule-time {
   min-width: 100px;
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-weight: 700;
   color: var(--primary);
   padding: var(--spacing-sm) var(--spacing-md);
-  background: rgba(165, 28, 48, 0.1);
+  background: rgba(165, 28, 48, 0.06);
   border-radius: var(--radius-md);
   text-align: center;
 }
@@ -93,6 +111,7 @@
 .schedule-details h4 {
   font-size: 1rem;
   margin-bottom: var(--spacing-xs);
+  font-weight: 600;
 }
 
 .schedule-details p {
@@ -102,17 +121,18 @@
 }
 
 .all-medications {
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .all-medications h2 {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-lg);
+  font-weight: 600;
 }
 
 .medications-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: var(--spacing-lg);
 }
 
@@ -121,12 +141,13 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
 }
 
 .medication-card:hover {
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
 }
 
 .medication-card-header {
@@ -139,6 +160,7 @@
 .medication-card-header h3 {
   font-size: 1.25rem;
   margin-bottom: var(--spacing-xs);
+  font-weight: 600;
 }
 
 .medication-dosage {
@@ -155,8 +177,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(165, 28, 48, 0.1);
+  background: rgba(165, 28, 48, 0.06);
   border-radius: var(--radius-md);
+  transition: transform var(--transition-base);
+}
+
+.medication-card:hover .medication-icon {
+  transform: scale(1.1);
 }
 
 .medication-info {
@@ -212,7 +239,7 @@
 .adherence-fill {
   height: 100%;
   border-radius: var(--radius-full);
-  transition: width 0.3s ease;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .medication-actions {
@@ -225,7 +252,7 @@
 }
 
 .reminders-section {
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .reminders-card {
@@ -233,13 +260,20 @@
   align-items: center;
   gap: var(--spacing-lg);
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, rgba(165, 28, 48, 0.05) 0%, rgba(165, 28, 48, 0.02) 100%);
-  border: 2px dashed rgba(165, 28, 48, 0.3);
+  background: linear-gradient(135deg, rgba(165, 28, 48, 0.04) 0%, rgba(165, 28, 48, 0.01) 100%);
+  border: 2px dashed rgba(165, 28, 48, 0.2);
   border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.reminders-card:hover {
+  border-style: solid;
+  background: rgba(165, 28, 48, 0.06);
 }
 
 .reminders-icon {
-  font-size: 4rem;
+  font-size: 3rem;
+  filter: grayscale(0.3);
 }
 
 .reminders-content {
@@ -247,8 +281,9 @@
 }
 
 .reminders-content h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   margin-bottom: var(--spacing-xs);
+  font-weight: 600;
 }
 
 .reminders-content p {
