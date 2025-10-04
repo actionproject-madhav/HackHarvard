@@ -636,3 +636,157 @@
     height: 300px;
   }
 }
+
+/* === MISSING DOCTORMATCH CLASSES === */
+
+.filters-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+}
+
+.specialization-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.specialization-filters button {
+  padding: 0.625rem 1.25rem;
+  border-radius: 999px;
+  border: 2px solid #E5E7EB;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.specialization-filters button:hover {
+  border-color: #A51C30;
+  color: #A51C30;
+}
+
+.specialization-filters button.active {
+  background: #A51C30;
+  border-color: #A51C30;
+  color: white;
+}
+
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.ai-analysis-card {
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 2px solid #3B82F6;
+}
+
+.ai-analysis-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ai-analysis-header h3 {
+  color: #1E40AF;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.ai-analysis-content {
+  color: #1E3A8A;
+  line-height: 1.7;
+}
+
+.doctor-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.doctor-bio {
+  color: #6B7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.doctor-languages {
+  margin-top: 1rem;
+}
+
+.language-tag {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  background: #F3F4F6;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: #4B5563;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.doctor-location {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.hospital-name {
+  font-weight: 600;
+  color: #1F2937;
+  font-size: 0.95rem;
+}
+
+.hospital-address {
+  color: #6B7280;
+  font-size: 0.875rem;
+}
+
+.doctor-fee {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #F9FAFB;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+}
+
+.fee-label {
+  color: #6B7280;
+  font-size: 0.875rem;
+}
+
+.fee-amount {
+  color: #A51C30;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.no-doctors {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6B7280;
+}
+
+.no-doctors p {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+

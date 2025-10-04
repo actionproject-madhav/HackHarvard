@@ -304,3 +304,82 @@ body {
   .heading-2 { font-size: 1.5rem; }
 }
 
+
+/* === MISSING GLOBAL CLASSES === */
+
+/* Button Variants */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-primary, #A51C30);
+  border: 2px solid var(--color-gray-200, #E5E7EB);
+}
+
+.btn-ghost:hover {
+  background: var(--color-gray-50, #F9FAFB);
+  border-color: var(--color-primary, #A51C30);
+}
+
+.btn-success {
+  background: var(--success, #10B981);
+  color: white;
+  border: none;
+}
+
+.btn-success:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+/* Tag System */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--color-gray-100, #F3F4F6);
+  color: var(--color-text, #1F2937);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Empty States */
+.empty-text {
+  color: var(--color-text-secondary, #6B7280);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Printable */
+.printable {
+  background: white;
+}
+
+@media print {
+  .printable {
+    box-shadow: none;
+    border: 1px solid #E5E7EB;
+  }
+}
+
+
+/* Tag Variants */
+.tag-primary {
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  color: #1E40AF;
+  border: 1px solid #3B82F6;
+}
+
+.tag-warning {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  color: #92400E;
+  border: 1px solid #F59E0B;
+}
+
