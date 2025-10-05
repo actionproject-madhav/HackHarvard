@@ -265,7 +265,7 @@ const StrokeAssessment = ({
 
       // Send to backend
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL || "api"}/face-detection/analyze`,
+        `${process.env.REACT_APP_API_BASE_URL || "api"}/face-detection/analyze`,
         {
           method: "POST",
           headers: {
@@ -420,7 +420,7 @@ const StrokeAssessment = ({
     try {
       console.log("💾 Saving assessment to database...");
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL || "api"}/emergency/stroke-incident`,
+        `${process.env.REACT_APP_API_BASE_URL || "api"}/emergency/stroke-incident`,
         {
           method: "POST",
           headers: {

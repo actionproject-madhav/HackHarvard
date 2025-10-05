@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Face Detection Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    #video {
+      width: 640px;
+      height: 480px;
+      background: #000;
+      border: 3px solid #333;
+    }
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+    .container {
+      position: relative;
+      display: inline-block;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+    .success { color: green; font-weight: bold; }
+    .error { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Face Detection Test</h1>
+  <p>This will test if MediaPipe FaceMesh can detect your face.</p>
+  
+  <div class="container">
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+  </div>
+  
+  <div id="status">Loading...</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.6"></script>
+  
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const status = document.getElementById('status');
+
+    async function main() {
+      try {
+        status.innerHTML = '🔄 Loading TensorFlow.js...';
+        await tf.ready();
+        
+        status.innerHTML = '🔄 Loading FaceMesh model...';
+        const model = await faceLandmarksDetection.createDetector(
+          faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh,
+          {
+            runtime: 'tfjs',
+            refineLandmarks: true,
+          }
+        );
+        
+        status.innerHTML = '🎥 Requesting camera...';
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 640, height: 480 }
+        });
+        video.srcObject = stream;
+        
+        status.innerHTML = '<span class="success">✅ Ready! Detecting faces...</span>';
+        
+        // Detection loop
+        let faceCount = 0;
+        setInterval(async () => {
+          const faces = await model.estimateFaces(video);
+          
+          // Clear canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          if (faces.length > 0) {
+            faceCount++;
+            const face = faces[0];
+            
+            // Draw all keypoints
+            ctx.fillStyle = 'lime';
+            face.keypoints.forEach(point => {
+              ctx.beginPath();
+              ctx.arc(point.x, point.y, 2, 0, 2 * Math.PI);
+              ctx.fill();
+            });
+            
+            // Draw bounding box
+            const box = face.box;
+            ctx.strokeStyle = 'lime';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(box.xMin, box.yMin, box.width, box.height);
+            
+            status.innerHTML = `
+              <span class="success">✅ FACE DETECTED!</span><br>
+              Total detections: ${faceCount}<br>
+              Keypoints: ${face.keypoints.length}<br>
+              Box: ${Math.round(box.xMin)}, ${Math.round(box.yMin)}, ${Math.round(box.width)}x${Math.round(box.height)}
+            `;
+          } else {
+            status.innerHTML = `
+              <span class="error">❌ NO FACE DETECTED</span><br>
+              Total successful detections: ${faceCount}<br>
+              <strong>Tips:</strong><br>
+              • Make sure you're facing the camera<br>
+              • Ensure good lighting<br>
+              • Move closer to the camera<br>
+              • Remove any obstructions
+            `;
+          }
+        }, 100); // Run every 100ms
+        
+      } catch (error) {
+        status.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+        console.error(error);
+      }
+    }
+
+    main();
+  </script>
+</body>
+</html>
