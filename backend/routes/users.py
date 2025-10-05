@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from flask import Blueprint, request, jsonify
 from utils.db import users_collection
 from models.user import User
@@ -53,7 +54,7 @@ def complete_onboarding(user_id):
                 'preferred_language': data.get('preferred_language', 'en'),
                 'accessibility_preferences': data.get('accessibility_preferences', {}),
                 'onboarding_completed': True,
-                'updated_at': datetime.utcnow()
+                'updated_at': datetime.now(timezone.utc)
             }}
         )
         
