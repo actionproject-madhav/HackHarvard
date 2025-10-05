@@ -17,7 +17,7 @@ npm-debug.log*
 .eslintcache
 
 # IDE
-.vscode/
+
 .idea/
 *.swp
 *.swo
