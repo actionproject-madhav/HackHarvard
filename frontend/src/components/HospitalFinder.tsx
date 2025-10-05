@@ -22,7 +22,7 @@ const HospitalFinder = ({ userLocation, specialization }: HospitalFinderProps) =
         : 'places/nearby-hospitals';
 
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL || 'api'}/${endpoint}`,
+        `${process.env.REACT_APP_API_BASE_URL || 'api'}/${endpoint}`,
         {
           method: 'POST',
           headers: {
