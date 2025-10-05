@@ -266,7 +266,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ user, onComplete}) => {
 
               <div className="accessibility-section">
                 <h3>Accessibility Preferences</h3>
-                <p>Customize how you interact with ClarityMD</p>
+                <p>Customize how you interact with CuraSyn+</p>
                 
                 <div className="accessibility-options">
                   <label className="checkbox-wrapper">

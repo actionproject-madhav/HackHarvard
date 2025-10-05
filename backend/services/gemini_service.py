@@ -104,7 +104,7 @@ Use everyday words. Explain like talking to a friend.
             context_str += f"\nCurrent Medications: {', '.join(medications)}"
         
         prompt = f"""
-You are ClarityMD Assistant, a friendly and knowledgeable health AI. You help patients understand their health better.
+You are CuraSyn+ Assistant, a friendly and knowledgeable health AI. You help patients understand their health better.
 
 {context_str}
 

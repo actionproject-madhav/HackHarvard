@@ -503,7 +503,7 @@ const EducationHub = ({ user }: EducationHubProps) => {
         <div className="accessibility-statement">
           <h3>Our Commitment to Accessibility</h3>
           <p>
-            ClarityMD is designed to bridge the communication gap in healthcare. We provide:
+            CuraSyn+ is designed to bridge the communication gap in healthcare. We provide:
           </p>
           <ul>
             <li><strong>Multilingual Support:</strong> Content available in 6+ languages</li>

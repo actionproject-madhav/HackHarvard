@@ -1,16 +1,16 @@
 import { User } from './types';
 
 export const saveUser = (user: User): void => {
-  localStorage.setItem('claritymd_user', JSON.stringify(user));
+  localStorage.setItem('CuraSyn+_user', JSON.stringify(user));
 };
 
 export const getUser = () => {
-  const user = localStorage.getItem('claritymd_user');
+  const user = localStorage.getItem('CuraSyn+_user');
   return user ? JSON.parse(user) : null;
 };
 
 export const removeUser = () => {
-  localStorage.removeItem('claritymd_user');
+  localStorage.removeItem('CuraSyn+_user');
 };
 
 export const isAuthenticated = () => {

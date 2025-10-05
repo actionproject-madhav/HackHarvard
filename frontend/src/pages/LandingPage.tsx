@@ -22,7 +22,10 @@ const LandingPage: React.FC = () => {
   return (
     <div className="landing-page">
       <nav className={`landing-nav ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="logo">HealthConnect</div>
+        <Link to="/" className="navbar-logo">
+          <div className="logo-icon">C</div>
+          <span className="logo-text">CuraSyn+</span>
+        </Link>
         <ul className="nav-links">
           <li><a href="#journey">Our Approach</a></li>
           <li><a href="#features">Features</a></li>
@@ -181,7 +184,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       <footer>
-        <p>© 2025 HealthConnect. Founded by Anni Rawal. Empowering patients through AI-powered education and seamless communication.</p>
+        <p>© 2025 CuraSyn+. Founded by Anni Rawal. Empowering patients through AI-powered education and seamless communication.</p>
       </footer>
     </div>
   );

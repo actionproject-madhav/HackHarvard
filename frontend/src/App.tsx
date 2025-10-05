@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     // Check for stored user
-    const storedUser = localStorage.getItem('claritymd_user');
+    const storedUser = localStorage.getItem('CuraSyn+_user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -44,19 +44,19 @@ function App() {
 
   const handleLogin = (userData: any) => {
     setUser(userData);
-    localStorage.setItem('claritymd_user', JSON.stringify(userData));
+    localStorage.setItem('CuraSyn+_user', JSON.stringify(userData));
   };
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('claritymd_user');
+    localStorage.removeItem('CuraSyn+_user');
   };
 
   const handleOnboardingComplete = useCallback(() => {
     if (user) {
       const updatedUser: User = { ...user, onboarding_completed: true };
       setUser(updatedUser);
-      localStorage.setItem('claritymd_user', JSON.stringify(updatedUser));
+      localStorage.setItem('CuraSyn+_user', JSON.stringify(updatedUser));
     }
   }, [user])
 

@@ -5,7 +5,7 @@ load_dotenv()
 
 class Config:
     # MongoDB
-    MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/claritymd')
+    MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/CuraSyn+')
     
     # Google OAuth
     GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')

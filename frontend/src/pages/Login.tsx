@@ -36,7 +36,7 @@ const Login = ({ onLogin }: LoginProps) => {
                   <path d="M20 12V20L26 23" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
-              <h1>ClarityMD</h1>
+              <h1>CuraSyn+</h1>
             </div>
 
             <div className="login-welcome">

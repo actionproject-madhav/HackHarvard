@@ -42,7 +42,7 @@ app.register_blueprint(face_detection_bp, url_prefix='/api/face-detection')
 @app.route('/')
 def index():
     return jsonify({
-        'message': 'ClarityMD API',
+        'message': 'CuraSyn+ API',
         'version': '1.0.0',
         'status': 'running'
     })
@@ -56,6 +56,6 @@ def health_check():
 
 if __name__ == '__main__':
     init_db()
-    print(" ClarityMD Backend starting...")
+    print(" CuraSyn+ Backend starting...")
     print(" API running on http://localhost:5000")
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -17,7 +17,7 @@ const GeminiChatbot = ({ user, isOpen, onToggle }: GeminiChatbotProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `Hi ${user.name?.split(' ')[0]}! I'm your ClarityMD health assistant. I can help you understand symptoms, medications, and provide health guidance. How can I help you today?`,
+      content: `Hi ${user.name?.split(' ')[0]}! I'm your CuraSyn+ health assistant. I can help you understand symptoms, medications, and provide health guidance. How can I help you today?`,
       timestamp: new Date()
     }
   ]);
@@ -125,7 +125,7 @@ const GeminiChatbot = ({ user, isOpen, onToggle }: GeminiChatbotProps) => {
               </svg>
             </div>
             <div className="chatbot-info">
-              <h3>ClarityMD Assistant</h3>
+              <h3>CuraSyn+ Assistant</h3>
               <p className="chatbot-status">
                 <span className="status-dot"></span>
                 Always here to help
