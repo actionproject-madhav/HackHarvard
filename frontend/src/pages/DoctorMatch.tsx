@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getDoctors, findNearbyDoctors } from "../services/api";
+import { getDoctors } from "../services/api";
 import HospitalFinder from "../components/HospitalFinder";
 import "../styles/DoctorMatch.css";
 
@@ -118,7 +118,7 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
                 // Remove bullet/number markers
                 let cleanedLine = line;
                 if (isBullet) {
-                  cleanedLine = line.replace(/^\s*[\*\-]\s*/, '• ');
+                  cleanedLine = line.replace(/^\s*[*-]\s*/, '• ');
                 }
                 
                 // Process bold text (**text**)

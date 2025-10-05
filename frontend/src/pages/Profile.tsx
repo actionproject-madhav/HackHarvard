@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { updateUser } from '../services/api';
 import AccessibilityMenu from '../components/AccessibilityMenu';
 import { AccessibilityPreferences, User } from '../services/types';
@@ -10,7 +9,6 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ user }) => {
-  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createAppointment, getUserAppointments } from '../services/api';
 import '../styles/Appointment.css';
@@ -15,7 +15,7 @@ const Appointment = ({ user }: AppointmentProps) => {
   const [loading, setLoading] = useState(false);
 
   // Booking form state
-  const [selectedDoctor, setSelectedDoctor] = useState(location.state?.selectedDoctor || null);
+  const [selectedDoctor] = useState(location.state?.selectedDoctor || null);
   const [appointmentType, setAppointmentType] = useState('in-person');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
@@ -28,13 +28,7 @@ const Appointment = ({ user }: AppointmentProps) => {
     '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM'
   ];
 
-  useEffect(() => {
-    if (activeTab === 'upcoming' || activeTab === 'past') {
-      loadAppointments();
-    }
-  }, [activeTab]);
-
-  const loadAppointments = async () => {
+  const loadAppointments = useCallback(async () => {
     setLoading(true);
     try {
       const status = activeTab === 'upcoming' ? 'scheduled' : 'completed';
@@ -45,7 +39,13 @@ const Appointment = ({ user }: AppointmentProps) => {
       console.error('Error loading appointments:', error);
       setLoading(false);
     }
-  };
+  }, [activeTab, user._id]);
+
+  useEffect(() => {
+    if (activeTab === 'upcoming' || activeTab === 'past') {
+      loadAppointments();
+    }
+  }, [activeTab, loadAppointments]);
 
   const handleSubmitBooking = async (e: React.FormEvent) => {
     e.preventDefault();

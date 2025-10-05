@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import '../styles/VoiceInput.css';
 
@@ -8,7 +8,6 @@ interface VoiceInputProps {
 }
 
 const VoiceInput = ({ onTranscript, placeholder = "Click to speak..." }: VoiceInputProps) => {
-  const [isListening, setIsListening] = useState<boolean>(false);
   const {
     transcript,
     listening,
@@ -33,11 +32,9 @@ const VoiceInput = ({ onTranscript, placeholder = "Click to speak..." }: VoiceIn
   const toggleListening = () => {
     if (listening) {
       SpeechRecognition.stopListening();
-      setIsListening(false);
     } else {
       resetTranscript();
       SpeechRecognition.startListening({ continuous: true });
-      setIsListening(true);
     }
   };
 

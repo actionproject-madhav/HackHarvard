@@ -19,7 +19,7 @@ const MedicationTracker = ({ user }: MedicationTrackerProps) => {
 
   const loadMedications = useCallback(async () => {
     try {
-      const response = await getUser(user._id);
+      await getUser(user._id);
       // Mock medications for demo
       setMedications([
         {

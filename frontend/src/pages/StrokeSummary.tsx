@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/StrokeSummary.css';
 
 interface StrokeSummaryProps {
@@ -7,11 +7,7 @@ interface StrokeSummaryProps {
 }
 
 const StrokeSummary = ({ user }: StrokeSummaryProps) => {
-  const navigate = useNavigate();
-  const { appointmentId } = useParams();
-  const [loading, setLoading] = useState(false);
-
-  // Hardcoded stroke appointment summary (for demo)
+   // Hardcoded stroke appointment summary (for demo)
   const summary = {
     appointmentDate: new Date().toLocaleDateString('en-US', { 
       weekday: 'long', 
