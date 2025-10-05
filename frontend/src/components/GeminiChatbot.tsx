@@ -47,7 +47,7 @@ const GeminiChatbot = ({ user, isOpen, onToggle }: GeminiChatbotProps) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || "api"}/gemini/chat`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "api"}/gemini/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
