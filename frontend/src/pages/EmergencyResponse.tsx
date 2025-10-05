@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/EmergencyResponse.css';
 
@@ -21,6 +21,65 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
     { id: 'booking', title: 'Booking Emergency Appointment', icon: '📅' },
     { id: 'complete', title: 'Help is On The Way', icon: '✅' }
   ];
+
+  const bookEmergencyAppointment = useCallback(async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/appointments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: user?._id || assessmentData?.userId,
+          doctor_id: 'emergency_neurologist_001', // Hardcoded for demo
+          type: 'emergency',
+          date: new Date().toISOString(),
+          time: 'ASAP',
+          symptoms: ['stroke', 'facial_droop', 'speech_difficulty'],
+          notes: 'EMERGENCY: Stroke detected via AI assessment',
+          assessment_data: assessmentData
+        }),
+      });
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error booking appointment:', error);
+    }
+  }, [assessmentData, user?._id]);
+
+  const saveStrokeIncident = useCallback(async () => {
+    try {
+      const payload = {
+        user_id: user?._id || assessmentData?.userId,
+        timestamp: new Date().toISOString(),
+        assessment_data: assessmentData,
+        emergency_call_made: true,
+        appointment_booked: true,
+        status: 'active'
+      };
+
+      console.log('💾 SAVING STROKE INCIDENT TO DATABASE');
+      console.log('Payload:', payload);
+      console.log('API URL:', `${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incident`);
+
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incident`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      console.log('✅ STROKE INCIDENT SAVED SUCCESSFULLY:', data);
+      console.log('Incident ID:', data.incident_id);
+      return data;
+    } catch (error) {
+      console.error('❌ ERROR SAVING STROKE INCIDENT:', error);
+      throw error;
+    }
+  }, [assessmentData, user?._id]);
 
   useEffect(() => {
     // Simulate emergency call flow
@@ -61,66 +120,7 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
     if (assessmentData) {
       simulateEmergencyFlow();
     }
-  }, [assessmentData, navigate]);
-
-  const bookEmergencyAppointment = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/appointments`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_id: user?._id || assessmentData?.userId,
-          doctor_id: 'emergency_neurologist_001', // Hardcoded for demo
-          type: 'emergency',
-          date: new Date().toISOString(),
-          time: 'ASAP',
-          symptoms: ['stroke', 'facial_droop', 'speech_difficulty'],
-          notes: 'EMERGENCY: Stroke detected via AI assessment',
-          assessment_data: assessmentData
-        }),
-      });
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error booking appointment:', error);
-    }
-  };
-
-  const saveStrokeIncident = async () => {
-    try {
-      const payload = {
-        user_id: user?._id || assessmentData?.userId,
-        timestamp: new Date().toISOString(),
-        assessment_data: assessmentData,
-        emergency_call_made: true,
-        appointment_booked: true,
-        status: 'active'
-      };
-
-      console.log('💾 SAVING STROKE INCIDENT TO DATABASE');
-      console.log('Payload:', payload);
-      console.log('API URL:', `${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incident`);
-
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incident`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-      console.log('✅ STROKE INCIDENT SAVED SUCCESSFULLY:', data);
-      console.log('Incident ID:', data.incident_id);
-      return data;
-    } catch (error) {
-      console.error('❌ ERROR SAVING STROKE INCIDENT:', error);
-      throw error;
-    }
-  };
+  }, [assessmentData, bookEmergencyAppointment, navigate, saveStrokeIncident]);
 
   if (!assessmentData) {
     return (
