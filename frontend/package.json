@@ -49,5 +49,6 @@
   },
   "devDependencies": {
     "@types/react-speech-recognition": "^3.9.6"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
