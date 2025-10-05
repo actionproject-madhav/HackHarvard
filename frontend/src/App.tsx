@@ -18,6 +18,7 @@ import EmergencyResponse from './pages/EmergencyResponse';
 import StrokeSummary from './pages/StrokeSummary';
 import SymptomReporting from './pages/SymptomReporting';
 import StrokeCheck from './pages/StrokeCheck';
+import Transcribe from './pages/Transcribe';
 
 // Components
 import Navbar from './components/Navbar';
@@ -147,6 +148,11 @@ function App() {
             <Route 
               path="/education" 
               element={user ? <EducationHub user={user} /> : <Navigate to="/login" />} 
+            />
+            
+            <Route 
+              path="/transcribe" 
+              element={user ? <Transcribe user={user} /> : <Navigate to="/login" />} 
             />
             
             <Route 

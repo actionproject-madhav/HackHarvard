@@ -72,11 +72,11 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
       });
 
       const data = await response.json();
-      console.log('✅ STROKE INCIDENT SAVED SUCCESSFULLY:', data);
+      console.log(' STROKE INCIDENT SAVED SUCCESSFULLY:', data);
       console.log('Incident ID:', data.incident_id);
       return data;
     } catch (error) {
-      console.error('❌ ERROR SAVING STROKE INCIDENT:', error);
+      console.error(' ERROR SAVING STROKE INCIDENT:', error);
       throw error;
     }
   }, [assessmentData, user?._id]);
