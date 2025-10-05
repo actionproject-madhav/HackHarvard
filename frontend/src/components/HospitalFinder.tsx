@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/HospitalFinder.css';
 
 interface HospitalFinderProps {
@@ -12,13 +12,7 @@ const HospitalFinder = ({ userLocation, specialization }: HospitalFinderProps) =
   const [selectedFacility, setSelectedFacility] = useState<any>(null);
   const [searchRadius, setSearchRadius] = useState(5000); // 5km default
 
-  useEffect(() => {
-    if (userLocation) {
-      fetchNearbyFacilities();
-    }
-  }, [userLocation, searchRadius, specialization]);
-
-  const fetchNearbyFacilities = async () => {
+  const fetchNearbyFacilities = useCallback(async () => {
     if (!userLocation) return;
 
     setLoading(true);
@@ -53,7 +47,13 @@ const HospitalFinder = ({ userLocation, specialization }: HospitalFinderProps) =
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchRadius, specialization, userLocation]);
+  
+  useEffect(() => {
+    if (userLocation) {
+      fetchNearbyFacilities();
+    }
+  }, [fetchNearbyFacilities, userLocation]);
 
   const getDirections = (facility: any) => {
     const url = `https://www.google.com/maps/dir/?api=1&origin=${userLocation?.lat},${userLocation?.lng}&destination=${facility.location.lat},${facility.location.lng}&destination_place_id=${facility.place_id}`;
