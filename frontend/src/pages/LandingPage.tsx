@@ -153,7 +153,14 @@ const LandingPage: React.FC = () => {
 
       <section id="demo" className="demo-section">
         <h2 className="section-title">See Our <span>AI in Action</span></h2>
-        <p className="section-subtitle">Experience how our emergency detection technology could save lives</p>
+        <p className="section-subtitle">Experience how our technology transforms healthcare communication and saves lives</p>
+        <div className="demo-box">
+         <h3>🎙️ AI Medical Transcription & Translation</h3>
+         <p>Watch how our AI listens to doctor appointments, transcribes in real-time, 
+            translates to any language, and simplifies complex medical terms into 
+            easy-to-understand explanations.</p>
+         <a href="/login" className="demo-link">Login to View Transcription Demo →</a>
+       </div>
         <div className="demo-box">
           <h3>🚨 Stroke Detection Demo</h3>
           <p>Watch how our AI can detect early warning signs of strokes in real-time, helping patients get care when every second counts.</p>
