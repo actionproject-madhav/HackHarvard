@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import '../styles/Transcribe.css';
 
 interface TranscribeProps {
@@ -12,7 +12,6 @@ const Transcribe = ({ user }: TranscribeProps) => {
   const [isListening, setIsListening] = useState(false);
   const [mode, setMode] = useState<Mode>('simplify');
   const [targetLanguage, setTargetLanguage] = useState<Language>('es');
-  const [originalText, setOriginalText] = useState('');
   const [processedText, setProcessedText] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -34,100 +33,66 @@ const Transcribe = ({ user }: TranscribeProps) => {
     { code: 'fr', name: 'French', flag: '🇫🇷' }
   ];
 
-  // Initialize Speech Recognition (once on mount)
-  useEffect(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = true;
-      recognitionRef.current.interimResults = true;
-      recognitionRef.current.lang = 'en-US';
+  const textToSpeech = useCallback(async (text: string) => {
+    try {
+      setIsSpeaking(true);
 
-      recognitionRef.current.onresult = (event: any) => {
-        let interimTranscript = '';
-        let finalTranscript = '';
-
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript;
-          if (event.results[i].isFinal) {
-            finalTranscript += transcript + ' ';
-          } else {
-            interimTranscript += transcript;
+      // Call Eleven Labs API
+      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'audio/mpeg',
+          'Content-Type': 'application/json',
+          'xi-api-key': process.env.REACT_APP_ELEVEN_LABS_API_KEY || ''
+        },
+        body: JSON.stringify({
+          text: text,
+          model_id: 'eleven_monolingual_v1',
+          voice_settings: {
+            stability: 0.5,
+            similarity_boost: 0.5
           }
-        }
+        })
+      });
 
-        if (finalTranscript) {
-          setOriginalText(prev => prev + finalTranscript);
-          processText(finalTranscript.trim());
+      if (response.ok) {
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        
+        if (audioRef.current) {
+          audioRef.current.src = audioUrl;
+          audioRef.current.play();
+          
+          audioRef.current.onended = () => {
+            setIsSpeaking(false);
+            URL.revokeObjectURL(audioUrl);
+          };
         }
-      };
-
-      recognitionRef.current.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
-        if (event.error === 'no-speech') {
-          console.log('No speech detected, continuing to listen...');
-        } else {
-          alert(`Speech recognition error: ${event.error}`);
-          setIsListening(false);
-        }
-      };
-    } else {
-      console.error('Speech recognition not supported');
-    }
-
-    return () => {
-      if (recognitionRef.current) {
+      } else {
+        const errorText = await response.text();
+        console.error('Eleven Labs API error:', errorText);
+        
+        // Check if it's a quota exceeded error
         try {
-          recognitionRef.current.stop();
-        } catch (error) {
-          console.error('Error stopping recognition:', error);
+          const errorData = JSON.parse(errorText);
+          if (errorData.detail?.status === 'quota_exceeded') {
+            console.log('Eleven Labs quota exceeded, using browser speech synthesis');
+            fallbackTextToSpeech(text);
+            return;
+          }
+        } catch (e) {
+          // Not JSON, use fallback anyway
         }
+        
+        fallbackTextToSpeech(text);
       }
-    };
+    } catch (error) {
+      console.error('Error with text-to-speech:', error);
+      fallbackTextToSpeech(text);
+    }
   }, []);
 
-  // Handle continuous listening
-  useEffect(() => {
-    if (recognitionRef.current) {
-      recognitionRef.current.onend = () => {
-        console.log('Speech recognition ended');
-        if (isListening) {
-          console.log('Restarting speech recognition...');
-          try {
-            recognitionRef.current.start();
-          } catch (error) {
-            console.error('Error restarting recognition:', error);
-          }
-        }
-      };
-    }
-  }, [isListening]);
-
-  const toggleListening = () => {
-    if (!recognitionRef.current) {
-      alert('Speech recognition is not supported in your browser. Please use Chrome or Edge.');
-      return;
-    }
-
-    if (isListening) {
-      console.log('Stopping speech recognition...');
-      recognitionRef.current.stop();
-      setIsListening(false);
-    } else {
-      console.log('Starting speech recognition...');
-      setOriginalText('');
-      setProcessedText('');
-      try {
-        recognitionRef.current.start();
-        setIsListening(true);
-      } catch (error) {
-        console.error('Error starting recognition:', error);
-        alert('Failed to start speech recognition. Please try again.');
-      }
-    }
-  };
-
-  const processText = async (text: string) => {
+  const processText = useCallback(async (text: string) => {
     if (!text.trim()) return;
 
     setIsProcessing(true);
@@ -201,64 +166,93 @@ Provide only the ${langNames[targetLanguage]} translation, nothing else.`;
     } finally {
       setIsProcessing(false);
     }
-  };
+      }, [mode, targetLanguage, textToSpeech, user._id, user.medical_conditions, user.name]);
 
-  const textToSpeech = async (text: string) => {
-    try {
-      setIsSpeaking(true);
+  // Initialize Speech Recognition (once on mount)
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = true;
+      recognitionRef.current.interimResults = true;
+      recognitionRef.current.lang = 'en-US';
 
-      // Call Eleven Labs API
-      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'audio/mpeg',
-          'Content-Type': 'application/json',
-          'xi-api-key': process.env.REACT_APP_ELEVEN_LABS_API_KEY || ''
-        },
-        body: JSON.stringify({
-          text: text,
-          model_id: 'eleven_monolingual_v1',
-          voice_settings: {
-            stability: 0.5,
-            similarity_boost: 0.5
+      recognitionRef.current.onresult = (event: any) => {
+        let finalTranscript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' ';
           }
-        })
-      });
-
-      if (response.ok) {
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        
-        if (audioRef.current) {
-          audioRef.current.src = audioUrl;
-          audioRef.current.play();
-          
-          audioRef.current.onended = () => {
-            setIsSpeaking(false);
-            URL.revokeObjectURL(audioUrl);
-          };
         }
-      } else {
-        const errorText = await response.text();
-        console.error('Eleven Labs API error:', errorText);
-        
-        // Check if it's a quota exceeded error
+
+        if (finalTranscript) {
+          processText(finalTranscript.trim());
+        }
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        if (event.error === 'no-speech') {
+          console.log('No speech detected, continuing to listen...');
+        } else {
+          alert(`Speech recognition error: ${event.error}`);
+          setIsListening(false);
+        }
+      };
+    } else {
+      console.error('Speech recognition not supported');
+    }
+
+    return () => {
+      if (recognitionRef.current) {
         try {
-          const errorData = JSON.parse(errorText);
-          if (errorData.detail?.status === 'quota_exceeded') {
-            console.log('Eleven Labs quota exceeded, using browser speech synthesis');
-            fallbackTextToSpeech(text);
-            return;
-          }
-        } catch (e) {
-          // Not JSON, use fallback anyway
+          recognitionRef.current.stop();
+        } catch (error) {
+          console.error('Error stopping recognition:', error);
         }
-        
-        fallbackTextToSpeech(text);
       }
-    } catch (error) {
-      console.error('Error with text-to-speech:', error);
-      fallbackTextToSpeech(text);
+    };
+  }, [processText]);
+
+  // Handle continuous listening
+  useEffect(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.onend = () => {
+        console.log('Speech recognition ended');
+        if (isListening) {
+          console.log('Restarting speech recognition...');
+          try {
+            recognitionRef.current.start();
+          } catch (error) {
+            console.error('Error restarting recognition:', error);
+          }
+        }
+      };
+    }
+  }, [isListening]);
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      alert('Speech recognition is not supported in your browser. Please use Chrome or Edge.');
+      return;
+    }
+
+    if (isListening) {
+      console.log('Stopping speech recognition...');
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      console.log('Starting speech recognition...');
+      setProcessedText('');
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+      } catch (error) {
+        console.error('Error starting recognition:', error);
+        alert('Failed to start speech recognition. Please try again.');
+      }
     }
   };
 
@@ -281,7 +275,6 @@ Provide only the ${langNames[targetLanguage]} translation, nothing else.`;
   };
 
   const clearConversation = () => {
-    setOriginalText('');
     setProcessedText('');
     setConversationHistory([]);
   };

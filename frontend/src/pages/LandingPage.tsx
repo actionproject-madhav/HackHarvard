@@ -46,21 +46,7 @@ const LandingPage: React.FC = () => {
           </div>
           <div className="hero-image">
             <div className="hero-img">
-              <div className="dashboard-preview">
-                <div className="dashboard-header">Your Health Dashboard</div>
-                <div className="dashboard-item">
-                  <h3>🩺 AI Health Detection</h3>
-                  <p>Symptom analysis complete</p>
-                </div>
-                <div className="dashboard-item">
-                  <h3>📋 Appointment Confirmed</h3>
-                  <p>Dr. Smith - Tomorrow at 2:00 PM</p>
-                </div>
-                <div className="dashboard-item">
-                  <h3>🎥 Post-Visit Education</h3>
-                  <p>Watch: Your procedure explained</p>
-                </div>
-              </div>
+              <img alt="Doctor and patient connecting with care" src="/images/landing-hero-img.png"/>
             </div>
           </div>
         </div>
