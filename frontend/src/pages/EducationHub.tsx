@@ -211,9 +211,24 @@ const EducationHub = ({ user }: EducationHubProps) => {
   const readAloud = (text: string) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = selectedLanguage === 'es' ? 'es-ES' : 'en-US';
+      // Map language codes to speech synthesis language codes
+      const langMap: { [key: string]: string } = {
+        'en': 'en-US',
+        'es': 'es-ES',
+        'zh': 'zh-CN',
+        'hi': 'hi-IN',
+        'ar': 'ar-SA',
+        'fr': 'fr-FR'
+      };
+      utterance.lang = langMap[selectedLanguage] || 'en-US';
       window.speechSynthesis.speak(utterance);
     }
+  };
+
+  // Get language name for display
+  const getLanguageName = () => {
+    const lang = languages.find(l => l.code === selectedLanguage);
+    return lang ? lang.name : 'English';
   };
 
   return (
@@ -288,6 +303,24 @@ const EducationHub = ({ user }: EducationHubProps) => {
             Back
           </Link>
         </div>
+
+        {/* Language Notice */}
+        {selectedLanguage !== 'en' && (
+          <div className="language-notice">
+            <div className="language-notice-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+              </svg>
+            </div>
+            <div className="language-notice-content">
+              <h4>Viewing content in {getLanguageName()}</h4>
+              <p>
+                You're viewing content available in {getLanguageName()}. Videos may include English audio with subtitles. 
+                Articles will open in their original language when available. Use the audio feature to hear descriptions read aloud in your selected language.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* STROKE PRIORITY BANNER */}
         {hasStrokeIncident && (
