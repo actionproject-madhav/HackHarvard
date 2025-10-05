@@ -12,7 +12,7 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [doctors, setDoctors] = useState<any>([]);
-  const [aiAnalysis, setAiAnalysis] = useState(null);
+  const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [userLocation, setUserLocation] = useState<any>(null);
@@ -105,7 +105,60 @@ const DoctorMatch = ({ user }: DoctorMatchProps) => {
               <h3>AI Analysis</h3>
             </div>
             <div className="ai-analysis-content">
-              <p>{aiAnalysis}</p>
+              {aiAnalysis.split('\n').map((line: string, idx: number) => {
+                // Skip empty lines
+                if (line.trim() === '') {
+                  return <div key={idx} style={{ height: '0.75rem' }} />;
+                }
+                // Check if line starts with bullet point or number
+                const trimmedLine = line.trim();
+                const isBullet = trimmedLine.startsWith('*') || trimmedLine.startsWith('-');
+                const isNumbered = /^\d+\./.test(trimmedLine);
+                
+                // Remove bullet/number markers
+                let cleanedLine = line;
+                if (isBullet) {
+                  cleanedLine = line.replace(/^\s*[\*\-]\s*/, '• ');
+                }
+                
+                // Process bold text (**text**)
+                const parts: (string | React.ReactElement)[] = [];
+                const boldRegex = /\*\*([^*]+)\*\*/g;
+                let lastIndex = 0;
+                let match;
+                
+                while ((match = boldRegex.exec(cleanedLine)) !== null) {
+                  // Add text before the bold
+                  if (match.index > lastIndex) {
+                    parts.push(cleanedLine.substring(lastIndex, match.index));
+                  }
+                  // Add bold text
+                  parts.push(<strong key={`bold-${idx}-${match.index}`}>{match[1]}</strong>);
+                  lastIndex = match.index + match[0].length;
+                }
+                
+                // Add remaining text
+                if (lastIndex < cleanedLine.length) {
+                  parts.push(cleanedLine.substring(lastIndex));
+                }
+                
+                // If no bold text was found, just use the cleaned line
+                const content = parts.length > 0 ? parts : cleanedLine;
+                
+                return (
+                  <p 
+                    key={idx} 
+                    style={{ 
+                      marginBottom: '0.5rem',
+                      marginLeft: (isBullet || isNumbered) ? '1.5rem' : '0',
+                      textIndent: (isBullet || isNumbered) ? '-1.5rem' : '0',
+                      paddingLeft: (isBullet || isNumbered) ? '1.5rem' : '0'
+                    }}
+                  >
+                    {content}
+                  </p>
+                );
+              })}
             </div>
           </div>
         )}

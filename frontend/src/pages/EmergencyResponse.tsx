@@ -43,12 +43,19 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
       setAppointmentBooked(true);
       setStep(3);
 
-      // Step 4: Complete (wait 3 seconds then redirect)
+      // Step 4: Complete (wait 3 seconds then redirect to dashboard)
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      // Save to database and redirect to stroke summary
+      // Save to database
       await saveStrokeIncident();
-      navigate('/stroke-summary');
+      
+      // Redirect to dashboard with success message
+      navigate('/dashboard', { 
+        state: { 
+          emergencyHandled: true,
+          message: 'Emergency services contacted. Appointment scheduled. Check your appointments for details.'
+        } 
+      });
     };
 
     if (assessmentData) {
@@ -84,26 +91,34 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
 
   const saveStrokeIncident = async () => {
     try {
+      const payload = {
+        user_id: user?._id || assessmentData?.userId,
+        timestamp: new Date().toISOString(),
+        assessment_data: assessmentData,
+        emergency_call_made: true,
+        appointment_booked: true,
+        status: 'active'
+      };
+
+      console.log('💾 SAVING STROKE INCIDENT TO DATABASE');
+      console.log('Payload:', payload);
+      console.log('API URL:', `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/emergency/stroke-incident`);
+
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/emergency/stroke-incident`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          user_id: user?._id || assessmentData?.userId,
-          timestamp: new Date().toISOString(),
-          assessment_data: assessmentData,
-          emergency_call_made: true,
-          appointment_booked: true,
-          status: 'active'
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
-      console.log('Stroke incident saved:', data);
+      console.log('✅ STROKE INCIDENT SAVED SUCCESSFULLY:', data);
+      console.log('Incident ID:', data.incident_id);
       return data;
     } catch (error) {
-      console.error('Error saving stroke incident:', error);
+      console.error('❌ ERROR SAVING STROKE INCIDENT:', error);
+      throw error;
     }
   };
 

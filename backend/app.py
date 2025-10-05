@@ -12,9 +12,11 @@ from routes.symptoms import symptoms_bp
 from routes.emergency import emergency_bp
 from routes.gemini import gemini_bp
 from routes.places import places_bp
+from routes.face_detection import face_detection_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.url_map.strict_slashes = False
 
 # Enable CORS for all routes
 CORS(app, resources={
@@ -35,6 +37,7 @@ app.register_blueprint(symptoms_bp, url_prefix='/api/symptoms')
 app.register_blueprint(emergency_bp, url_prefix='/api/emergency')
 app.register_blueprint(gemini_bp, url_prefix='/api/gemini')
 app.register_blueprint(places_bp, url_prefix='/api/places')
+app.register_blueprint(face_detection_bp, url_prefix='/api/face-detection')
 
 @app.route('/')
 def index():
