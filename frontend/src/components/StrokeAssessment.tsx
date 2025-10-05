@@ -220,7 +220,7 @@ const StrokeAssessment = ({ user, onStrokeDetected, onCancel }: StrokeAssessment
       console.log('🔍 Sending frame to backend for face detection...');
       
       // Send to backend
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/face-detection/analyze`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/face-detection/analyze`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -456,7 +456,7 @@ const StrokeAssessment = ({ user, onStrokeDetected, onCancel }: StrokeAssessment
     // ALWAYS save to database (stroke or not)
     try {
       console.log('💾 Saving assessment to database...');
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/emergency/stroke-incident`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incident`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -65,7 +65,7 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
 
   const bookEmergencyAppointment = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/appointments`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/appointments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,9 +102,9 @@ const EmergencyResponse = ({ user }: EmergencyResponseProps) => {
 
       console.log('💾 SAVING STROKE INCIDENT TO DATABASE');
       console.log('Payload:', payload);
-      console.log('API URL:', `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/emergency/stroke-incident`);
+      console.log('API URL:', `${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incident`);
 
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/emergency/stroke-incident`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incident`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

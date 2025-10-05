@@ -24,11 +24,11 @@ const HospitalFinder = ({ userLocation, specialization }: HospitalFinderProps) =
     setLoading(true);
     try {
       const endpoint = specialization 
-        ? '/api/places/specialized-facilities'
-        : '/api/places/nearby-hospitals';
+        ? 'places/specialized-facilities'
+        : 'places/nearby-hospitals';
 
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}${endpoint}`,
+        `${process.env.REACT_APP_API_URL || 'api'}/${endpoint}`,
         {
           method: 'POST',
           headers: {

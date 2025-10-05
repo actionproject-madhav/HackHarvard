@@ -33,7 +33,7 @@ const EducationHub = ({ user }: EducationHubProps) => {
     const checkStrokeIncident = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/emergency/stroke-incidents/${user._id}`
+          `${process.env.REACT_APP_API_URL || 'api'}/emergency/stroke-incidents/${user._id}`
         );
         const data = await response.json();
         

@@ -148,7 +148,7 @@ const SymptomReporting = ({ user }: SymptomReportingProps) => {
       };
 
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api'}/symptoms/report`,
+        `${process.env.REACT_APP_API_URL || 'api'}/symptoms/report`,
         {
           method: 'POST',
           headers: {
