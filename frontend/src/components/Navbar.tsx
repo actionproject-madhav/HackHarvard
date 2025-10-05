@@ -42,6 +42,7 @@ const Navbar = ({ user, onLogout }: NavbarProps) => {
           <Link to="/symptoms" className="nav-link">Symptoms</Link>
           <Link to="/doctors" className="nav-link">Doctors</Link>
           <Link to="/education" className="nav-link">Education</Link>
+          <Link to="/transcribe" className="nav-link">Transcribe</Link>
           <Link to="/medications" className="nav-link">Medications</Link>
         </div>
 
