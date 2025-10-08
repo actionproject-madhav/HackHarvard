@@ -1,6 +1,6 @@
 ## Inspiration
 
-During my time working as an assistant in a hospital, I witnessed firsthand a heartbreaking reality that healthcare professionals rarely talk about: the invisible patients.
+Annie Rawal (team Curasyn): During my time working as an assistant in a hospital, I witnessed firsthand a heartbreaking reality that healthcare professionals rarely talk about: the invisible patients.
 
 I remember Maria, a 67-year-old Spanish-speaking grandmother who sat confused in the waiting room, clutching a prescription she couldn't read. I saw Mr. Chen, who nodded politely at his doctor's complex medical explanations, too embarrassed to admit he didn't understand a single word. I watched Sarah, a deaf patient, struggle to communicate her symptoms through a hastily scribbled note.
 
