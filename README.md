@@ -2,7 +2,7 @@
 
 Annie Rawal (team Curasyn): During my time working as an assistant in a hospital, I witnessed firsthand a heartbreaking reality that healthcare professionals rarely talk about: the invisible patients.
 
-I remember Maria, a 67-year-old Spanish-speaking grandmother who sat confused in the waiting room, clutching a prescription she couldn't read. I saw Mr. Chen, who nodded politely at his doctor's complex medical explanations, too embarrassed to admit he didn't understand a single word. I watched Sarah, a deaf patient, struggle to communicate her symptoms through a hastily scribbled note.
+I remember anonymous, a 67-year-old Spanish-speaking grandmother who sat confused in the waiting room, clutching a prescription she couldn't read. I saw Mr. anonymous, who nodded politely at his doctor's complex medical explanations, too embarrassed to admit he didn't understand a single word. I watched Sarah, a deaf patient, struggle to communicate her symptoms through a hastily scribbled note.
 
 These weren't isolated incidents. Every single day, I saw patients—immigrants, elderly individuals, people with disabilities, non-native English speakers—being left behind by a healthcare system that wasn't built for them. They would miss critical medication instructions because they were too complex, nod along to diagnoses they didn't comprehend, leave appointments more confused than when they arrived, and delay seeking care because communication felt impossible.
 
