@@ -10,11 +10,16 @@ interface LoginProps {
 const Login = ({ onLogin }: LoginProps) => {
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
+      console.log('🔍 Google OAuth Success:', credentialResponse);
+      console.log('🔍 Calling googleAuth with token:', credentialResponse.credential?.substring(0, 20) + '...');
+      
       const response = await googleAuth(credentialResponse.credential);
+      console.log('✅ Backend response:', response.data);
       onLogin(response.data.user);
-    } catch (error) {
-      console.error('Login failed:', error);
-      alert('Login failed. Please try again.');
+    } catch (error: any) {
+      console.error('❌ Login failed:', error);
+      console.error('Error details:', error.response?.data);
+      alert(`Login failed: ${error.response?.data?.error || error.message}. Please try again.`);
     }
   };
 

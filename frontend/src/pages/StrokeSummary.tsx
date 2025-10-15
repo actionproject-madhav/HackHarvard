@@ -122,13 +122,27 @@ const StrokeSummary = ({ user }: StrokeSummaryProps) => {
         {/* Video Explanation */}
         <div className="info-card video-card">
           <h2>📹 Doctor's Video Explanation</h2>
-          <div className="video-placeholder">
-            <div className="video-thumbnail">
-              <div className="play-icon">▶</div>
-              <p className="video-title">{summary.videoPlaceholder.title}</p>
+          <div className="video-container">
+            <video 
+              className="summary-video"
+              controls
+              poster="/images/stroke-poster.jpg"
+              preload="metadata"
+            >
+              <source src="/videos/stroke.mp4" type="video/mp4" />
+              <track kind="captions" src="/videos/stroke-captions.vtt" srcLang="en" label="English" default />
+              Your browser does not support the video tag.
+            </video>
+            
+            <div className="video-info">
+              <h3 className="video-title">{summary.videoPlaceholder.title}</h3>
+              <p className="video-description">{summary.videoPlaceholder.description}</p>
+              <div className="video-meta">
+                <span className="duration">⏱️ 3:24</span>
+                <span className="quality">📺 HD</span>
+                <span className="captions">📝 Captions Available</span>
+              </div>
             </div>
-            <p className="video-description">{summary.videoPlaceholder.description}</p>
-            <p className="video-duration">{summary.videoPlaceholder.thumbnailText}</p>
           </div>
         </div>
 
