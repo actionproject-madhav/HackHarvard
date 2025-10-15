@@ -23,6 +23,6 @@ class Config:
     # CORS
     CORS_ORIGINS = [
         'http://localhost:3000',
-        'https://curasynplus.onrender.com',
-        'https://curasynplus.onrender.com/'
+        'https://curasyn.onrender.com',
+        'https://curasyn.onrender.com/'
     ]
