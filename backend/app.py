@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, render_template
 from flask_cors import CORS
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from config import Config
 from utils.db import init_db
 
