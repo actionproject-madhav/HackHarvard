@@ -240,6 +240,90 @@
   font-size: 1.125rem;
 }
 
+/* Actual Video Player Styles */
+.video-container {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+  background: #000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1rem;
+}
+
+.video-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(59, 130, 246, 0.4);
+}
+
+.summary-video {
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  display: block;
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+}
+
+.summary-video::-webkit-media-controls-panel {
+  background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+.summary-video::-webkit-media-controls-play-button,
+.summary-video::-webkit-media-controls-pause-button {
+  background: #3B82F6;
+  border-radius: 50%;
+}
+
+.video-info {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+  border-top: 1px solid #CBD5E1;
+}
+
+.video-info .video-title {
+  color: #1E293B;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-shadow: none;
+}
+
+.video-info .video-description {
+  color: #475569;
+  margin: 0.5rem 0;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.video-meta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.video-meta span {
+  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.video-meta .duration {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.video-meta .quality {
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+}
+
+.video-meta .captions {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+}
+
 /* Diagnosis */
 .diagnosis-card {
   background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);

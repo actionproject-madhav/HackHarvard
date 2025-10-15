@@ -1,0 +1,18 @@
+# This is a placeholder for the stroke.mp4 video file
+# Replace this file with the actual stroke.mp4 video
+# The video should be a doctor's explanation of stroke conditions and treatment
+
+# Video specifications:
+# - Format: MP4
+# - Duration: ~3-5 minutes
+# - Content: Doctor explaining stroke condition, treatment, and recovery
+# - Quality: HD (720p or higher)
+# - Audio: Clear speech with medical explanations
+
+# To add the actual video:
+# 1. Place your stroke.mp4 file in /Users/madhav/Documents/HackHarvard/frontend/public/videos/
+# 2. Ensure it's named exactly "stroke.mp4"
+# 3. The video will automatically be available at /videos/stroke.mp4 in the app
+
+# Optional: Add captions file
+# Create stroke-captions.vtt in the same directory for accessibility

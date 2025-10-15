@@ -21,4 +21,8 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
     
     # CORS
-    CORS_ORIGINS = ['http://localhost:3000']
+    CORS_ORIGINS = [
+        'http://localhost:3000',
+        'https://curasynplus.onrender.com',
+        'https://curasynplus.onrender.com/'
+    ]

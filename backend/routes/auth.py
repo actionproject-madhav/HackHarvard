@@ -19,7 +19,16 @@ class JSONEncoder(json.JSONEncoder):
 def google_auth():
     """Authenticate user with Google OAuth"""
     try:
+        print("🔍 Google Auth Request Received")
+        print(f"Request data: {request.json}")
+        print(f"Google Client ID: {Config.GOOGLE_CLIENT_ID}")
+        
+        if not request.json:
+            return jsonify({'success': False, 'error': 'No JSON data provided'}), 400
+            
         token = request.json.get('token')
+        if not token:
+            return jsonify({'success': False, 'error': 'No token provided'}), 400
         
         # Verify Google token
         idinfo = id_token.verify_oauth2_token(
@@ -50,6 +59,7 @@ def google_auth():
         # Convert ObjectId to string
         user['_id'] = str(user['_id'])
         
+        print(f"✅ Login successful for user: {email}")
         return jsonify({
             'success': True,
             'user': user,
@@ -57,9 +67,12 @@ def google_auth():
         }), 200
         
     except Exception as e:
+        print(f"❌ Google Auth Error: {str(e)}")
+        print(f"Error type: {type(e)}")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': str(e),
+            'error_type': str(type(e).__name__)
         }), 401
 
 @auth_bp.route('/logout', methods=['POST'])
