@@ -1,3 +1,5 @@
+Demo: https://curasyn.onrender.com
+
 ## Inspiration
 
 (Member at team Curasyn): During my time working as an assistant in a hospital, I witnessed firsthand a heartbreaking reality that healthcare professionals rarely talk about: the invisible patients.
